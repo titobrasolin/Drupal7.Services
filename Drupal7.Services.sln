@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 5.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{030109AD-A3C3-4792-B56F-D9F6E3C29CBE}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drupal7.Services", "Drupal7.Services\Drupal7.Services.csproj", "{4F6C5819-0EE7-4C69-8012-B0AFA3D901F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F6C5819-0EE7-4C69-8012-B0AFA3D901F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F6C5819-0EE7-4C69-8012-B0AFA3D901F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F6C5819-0EE7-4C69-8012-B0AFA3D901F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F6C5819-0EE7-4C69-8012-B0AFA3D901F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

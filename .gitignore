@@ -181,3 +181,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Create New NuGet Package From Project After Each Build
+**/_CreateNewNuGetPackage/*

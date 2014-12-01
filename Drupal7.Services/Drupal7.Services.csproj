@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4F6C5819-0EE7-4C69-8012-B0AFA3D901F0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Drupal7.Services</RootNamespace>
+    <AssemblyName>Drupal7.Services</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CookComputing.XmlRpcV2">
+      <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DrupalServicesComment.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesDefinition.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesFile.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesFlag.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesGeocoder.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesMenu.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesNode.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesSystem.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesTaxonomyTerm.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesTaxonomyVocabulary.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesUser.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesViews.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IServiceSystem.cs" />
+    <Compile Include="DrupalFile.cs" />
+    <Compile Include="DrupalSessionObject.cs" />
+    <Compile Include="DrupalUser.cs" />
+    <Compile Include="DrupalServices.cs" />
+    <Compile Include="DrupalAsyncCompletedEventArgs.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
