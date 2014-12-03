@@ -165,6 +165,10 @@ namespace Drupal7.Services
 			return this.NodeIndex(page, "*", new XmlRpcStruct(), page_size);
 		}
 
+		public XmlRpcStruct[] NodeIndex (int page, string fields, int page_size) {
+			return this.NodeIndex(page, fields, new XmlRpcStruct(), page_size);
+		}
+
 		public XmlRpcStruct[] NodeIndex (int page, string fields, XmlRpcStruct parameters, int page_size)
 		{
 			this.InitRequest ();
