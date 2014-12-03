@@ -12,7 +12,7 @@ Quickstart
 
 Drupal7.Services (prerelease) is available in NuGet.
 
-After installation, create a new instance of DrupalServices passing the url of your to the constructor:
+After installation, create a new instance of DrupalServices passing the url of your service endpoint to the constructor:
 
     string url = "http://www.strongmonkey.net/services/xmlrpc";
     Drupal7.Services.DrupalServices d = new Drupal7.Services.DrupalServices (url);
