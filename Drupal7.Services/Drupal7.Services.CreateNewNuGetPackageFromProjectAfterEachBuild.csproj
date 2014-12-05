@@ -81,6 +81,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <None Include="Drupal7.Services.nuspec" />
+    <None Include="nuspec.2011.8.xsd" />
     <None Include="packages.Drupal7.Services.CreateNewNuGetPackageFromProjectAfterEachBuild.config" />
     <None Include="_CreateNewNuGetPackage\Config.ps1" />
     <None Include="_CreateNewNuGetPackage\DoNotModify\CreateNuGetPackage.ps1" />
