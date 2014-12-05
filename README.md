@@ -12,14 +12,17 @@ Quickstart
 
 Drupal7.Services (prerelease) is available in NuGet.
 
-After installation, create a new instance of DrupalServices passing the url of your service endpoint to the constructor:
+Usage is simple: create a new instance of DrupalServices passing the url of your service endpoint to the constructor:
+
+    using Drupal7.Services;
+    using CookComputing.XmlRpc;
 
     string url = "http://www.strongmonkey.net/services/xmlrpc";
-    Drupal7.Services.DrupalServices d = new Drupal7.Services.DrupalServices (url);
+    DrupalServices d = new Drupal7.Services.DrupalServices (url);
 
 Then call NodeIndex to retrieve an array of Drupal nodes:
 
     int page = 0;
     string fields = "*";
     int size = 20;
-    CookComputing.XmlRpc.XmlRpcStruct[] n = d.NodeIndex (page, fields, size);
+    XmlRpcStruct[] n = d.NodeIndex (page, fields, size);
