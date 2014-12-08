@@ -56,6 +56,12 @@
     <Compile Include="DrupalServicesNode.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
+    <Compile Include="DrupalServicesSearchNode.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesSearchUser.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrupalServicesSystem.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
