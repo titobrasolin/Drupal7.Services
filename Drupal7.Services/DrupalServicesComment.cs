@@ -2,6 +2,12 @@
 using CookComputing.XmlRpc;
 namespace Drupal7.Services
 {
+	public struct DrupalCommentCid
+	{
+		public string cid;
+		public string uri;
+	}
+
 	public struct DrupalComment
 	{
 		public string cid;
@@ -43,7 +49,7 @@ namespace Drupal7.Services
 		private AsyncCallback CommentCountAllOperationCompleted;
 		private AsyncCallback CommentCountNewOperationCompleted;
 
-		public event DrupalAsyncCompletedEventHandler<XmlRpcStruct> CommentCreateCompleted;
+		public event DrupalAsyncCompletedEventHandler<DrupalCommentCid> CommentCreateCompleted;
 		public event DrupalAsyncCompletedEventHandler<object> CommentRetrieveCompleted;
 		public event DrupalAsyncCompletedEventHandler<object> CommentUpdateCompleted;
 		public event DrupalAsyncCompletedEventHandler<bool> CommentDeleteCompleted;
@@ -51,7 +57,7 @@ namespace Drupal7.Services
 		public event DrupalAsyncCompletedEventHandler<int> CommentCountAllCompleted;
 		public event DrupalAsyncCompletedEventHandler<int> CommentCountNewCompleted;
 
-		public XmlRpcStruct CommentCreate(int nid, string comment_body)
+		XmlRpcStruct NewComment(int nid, string comment_body)
 		{
 			XmlRpcStruct comment;
 
@@ -67,26 +73,40 @@ namespace Drupal7.Services
 								} }
 						} }
 				} };
+			return comment;
+		}
+
+		public DrupalCommentCid CommentCreate(int nid, string comment_body)
+		{
+			return this.CommentCreate(NewComment(nid, comment_body));
+		}
+
+		public DrupalCommentCid CommentCreate(int nid, string comment_body, string subject)
+		{
+			XmlRpcStruct comment;
+
+			comment = NewComment(nid, comment_body);
+			comment["subject"] = subject;
 
 			return this.CommentCreate(comment);
 		}
 
-		public XmlRpcStruct CommentCreate(int nid, string comment_body, string subject)
+		public DrupalCommentCid CommentCreate(int nid, int pid, string comment_body)
 		{
 			XmlRpcStruct comment;
 
-			comment = new XmlRpcStruct();
-			comment["nid"] = nid;
-			comment["comment_body"] = new XmlRpcStruct(){ {
-					"und",
-					new XmlRpcStruct(){ {
-							"0",
-							new XmlRpcStruct(){ {
-									"value",
-									comment_body
-								} }
-						} }
-				} };
+			comment = NewComment(nid, comment_body);
+			comment["pid"] = pid;
+
+			return this.CommentCreate(comment);
+		}
+
+		public DrupalCommentCid CommentCreate(int nid, int pid, string comment_body, string subject)
+		{
+			XmlRpcStruct comment;
+
+			comment = NewComment(nid, comment_body);
+			comment["pid"] = pid;
 			comment["subject"] = subject;
 
 			return this.CommentCreate(comment);
@@ -97,10 +117,10 @@ namespace Drupal7.Services
 		/// </summary>
 		/// <param name="comment">An object as would be returned from comment_load().</param>
 		/// <returns>Unique identifier for the comment (cid) or errors if there was a problem.</returns>
-		public XmlRpcStruct CommentCreate(XmlRpcStruct comment)
+		public DrupalCommentCid CommentCreate(XmlRpcStruct comment)
 		{
 			this.InitRequest();
-			XmlRpcStruct res = null;
+			DrupalCommentCid res = default(DrupalCommentCid);
 			try {
 				res = drupalServiceSystem.CommentCreate(comment);
 			} catch (Exception ex) {
@@ -121,12 +141,12 @@ namespace Drupal7.Services
 		{
 			if (this.CommentCreateCompleted != null) {
 				var clientResult = (XmlRpcAsyncResult)asyncResult;
-				XmlRpcStruct result = null;
+				DrupalCommentCid result = default(DrupalCommentCid);
 				try {
 					result = ((IServiceSystem)clientResult.ClientProtocol).EndCommentCreate(asyncResult);
-					this.CommentCreateCompleted(this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct>(result, null, asyncResult.AsyncState));
+					this.CommentCreateCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalCommentCid>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.CommentCreateCompleted(this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct>(result, ex, asyncResult.AsyncState));
+					this.CommentCreateCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalCommentCid>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
