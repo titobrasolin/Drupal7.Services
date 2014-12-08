@@ -11,36 +11,36 @@ namespace Drupal7.Services
 		
 		public event DrupalAsyncCompletedEventHandler<XmlRpcStruct> DefinitionIndexCompleted;
 
-		public XmlRpcStruct DefinitionIndex ()
+		public XmlRpcStruct DefinitionIndex()
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			XmlRpcStruct res = null;
 			try {
-				res = drupalServiceSystem.DefinitionIndex ();
+				res = drupalServiceSystem.DefinitionIndex();
 			} catch (Exception ex) {
-				this.HandleException (ex, "DefinitionIndex");
+				this.HandleException(ex, "DefinitionIndex");
 			}
 			return res;
 		}
 		
-		public void DefinitionIndexAsync (object asyncState)
+		public void DefinitionIndexAsync(object asyncState)
 		{
 			if (this.DefinitionIndexOperationCompleted == null) {
-				this.DefinitionIndexOperationCompleted = new AsyncCallback (this.OnDefinitionIndexCompleted);
+				this.DefinitionIndexOperationCompleted = new AsyncCallback(this.OnDefinitionIndexCompleted);
 			}
-			drupalServiceSystem.BeginDefinitionIndex (this.DefinitionIndexOperationCompleted, asyncState);
+			drupalServiceSystem.BeginDefinitionIndex(this.DefinitionIndexOperationCompleted, asyncState);
 		}
 
-		void OnDefinitionIndexCompleted (IAsyncResult asyncResult)
+		void OnDefinitionIndexCompleted(IAsyncResult asyncResult)
 		{
 			if (this.DefinitionIndexCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				XmlRpcStruct result = null;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndDefinitionIndex (asyncResult);
-					this.DefinitionIndexCompleted (this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndDefinitionIndex(asyncResult);
+					this.DefinitionIndexCompleted(this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.DefinitionIndexCompleted (this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct> (result, ex, asyncResult.AsyncState));
+					this.DefinitionIndexCompleted(this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}

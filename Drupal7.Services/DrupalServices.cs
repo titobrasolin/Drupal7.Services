@@ -14,27 +14,25 @@ namespace Drupal7.Services
 		public event HandledExceptionDelegate HandledException;
 
 		string _password;
-        string _username;
-        public string Username
-        {
-            get { return _username; }
-        }
-
-        bool _isLoggedIn = false;
-        public bool IsLoggedIn
-        {
-             get { return _isLoggedIn; }
-        }
-
-        IServiceSystem drupalServiceSystem;
-
-		public DrupalServices (string url)
-		{
-            drupalServiceSystem = XmlRpcProxyGen.Create<IServiceSystem>();
-            drupalServiceSystem.Url = url;
+		string _username;
+		public string Username {
+			get { return _username; }
 		}
 
-        public string Url {
+		bool _isLoggedIn = false;
+		public bool IsLoggedIn {
+			get { return _isLoggedIn; }
+		}
+
+		IServiceSystem drupalServiceSystem;
+
+		public DrupalServices(string url)
+		{
+			drupalServiceSystem = XmlRpcProxyGen.Create<IServiceSystem>();
+			drupalServiceSystem.Url = url;
+		}
+
+		public string Url {
 			get { return drupalServiceSystem.Url; }
 			set { drupalServiceSystem.Url = value; }
 		}
@@ -55,13 +53,12 @@ namespace Drupal7.Services
 		
 		private void OnHandledException(Exception ex, string functionName)
 		{
-			if (this.HandledException != null)
-			{
+			if (this.HandledException != null) {
 				this.HandledException(ex, functionName);
 			}
 		}
 
-		private void HandleException (Exception ex, string functionName)
+		private void HandleException(Exception ex, string functionName)
 		{
 			if (ex is XmlRpcFaultException) {
 				_errorCode = (ex as XmlRpcFaultException).FaultCode;
@@ -73,7 +70,7 @@ namespace Drupal7.Services
 			this.OnHandledException(ex, functionName);
 		}
 		
-		private void InitRequest ()
+		private void InitRequest()
 		{
 			_errorCode = 0;
 			_errorMessage = "";
@@ -85,17 +82,17 @@ namespace Drupal7.Services
 			}
 		}
 
-        public bool ReLogin ()
+		public bool ReLogin()
 		{
-			return Login (_username, _password);
+			return Login(_username, _password);
 		}
 
-		public bool Login (string username, string password)
+		public bool Login(string username, string password)
 		{
 			_username = username;
 			_password = password;
 
-			_sessionData = this.UserLogin (_username, _password);
+			_sessionData = this.UserLogin(_username, _password);
 			_isLoggedIn = (_sessionData.user.name == _username);
 			if (!_isLoggedIn) {
 				this.HandleException(new Exception("Unable to login."), "Login");
@@ -103,7 +100,7 @@ namespace Drupal7.Services
 			return _isLoggedIn;
 		}
 		
-		public bool Logout ()
+		public bool Logout()
 		{
 			_isLoggedIn = _isLoggedIn && !this.UserLogout();
 			if (_isLoggedIn) {

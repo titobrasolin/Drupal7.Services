@@ -11,56 +11,56 @@ namespace Drupal7.Services
 
 		public event DrupalAsyncCompletedEventHandler<bool> FlagIsFlaggedCompleted;
 				
-		public bool FlagIsFlagged (string flag_name, int content_id)
+		public bool FlagIsFlagged(string flag_name, int content_id)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			bool result = false;
 			try {
-				result = drupalServiceSystem.FlagIsFlagged (flag_name, content_id);
+				result = drupalServiceSystem.FlagIsFlagged(flag_name, content_id);
 			} catch (Exception ex) {
-				this.HandleException (ex, "FlagIsFlagged");
+				this.HandleException(ex, "FlagIsFlagged");
 			}
 			return result;
 		}
 
-		public void FlagIsFlaggedAsync (string flag_name, int content_id, object asyncState)
+		public void FlagIsFlaggedAsync(string flag_name, int content_id, object asyncState)
 		{
 			if (this.FlagIsFlaggedOperationCompleted == null) {
-				this.FlagIsFlaggedOperationCompleted = new AsyncCallback (this.OnFlagIsFlaggedCompleted);
+				this.FlagIsFlaggedOperationCompleted = new AsyncCallback(this.OnFlagIsFlaggedCompleted);
 			}
-			drupalServiceSystem.BeginFlagIsFlagged (flag_name, content_id, this.FlagIsFlaggedOperationCompleted, asyncState);
+			drupalServiceSystem.BeginFlagIsFlagged(flag_name, content_id, this.FlagIsFlaggedOperationCompleted, asyncState);
 		}
 
-		public bool FlagIsFlagged (string flag_name, int content_id, int uid)
+		public bool FlagIsFlagged(string flag_name, int content_id, int uid)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			bool result = false;
 			try {
-				result = drupalServiceSystem.FlagIsFlagged (flag_name, content_id, uid);
+				result = drupalServiceSystem.FlagIsFlagged(flag_name, content_id, uid);
 			} catch (Exception ex) {
-				this.HandleException (ex, "FlagIsFlagged");
+				this.HandleException(ex, "FlagIsFlagged");
 			}
 			return result;
 		}
 
-		public void FlagIsFlaggedAsync (string flag_name, int content_id, int uid, object asyncState)
+		public void FlagIsFlaggedAsync(string flag_name, int content_id, int uid, object asyncState)
 		{
 			if (this.FlagIsFlaggedOperationCompleted == null) {
-				this.FlagIsFlaggedOperationCompleted = new AsyncCallback (this.OnFlagIsFlaggedCompleted);
+				this.FlagIsFlaggedOperationCompleted = new AsyncCallback(this.OnFlagIsFlaggedCompleted);
 			}
-			drupalServiceSystem.BeginFlagIsFlagged (flag_name, content_id, uid, this.FlagIsFlaggedOperationCompleted, asyncState);
+			drupalServiceSystem.BeginFlagIsFlagged(flag_name, content_id, uid, this.FlagIsFlaggedOperationCompleted, asyncState);
 		}
 
-		void OnFlagIsFlaggedCompleted (IAsyncResult asyncResult)
+		void OnFlagIsFlaggedCompleted(IAsyncResult asyncResult)
 		{
 			if (this.FlagIsFlaggedCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				bool result = false;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndFlagIsFlagged (asyncResult);
-					this.FlagIsFlaggedCompleted (this, new DrupalAsyncCompletedEventArgs<bool> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndFlagIsFlagged(asyncResult);
+					this.FlagIsFlaggedCompleted(this, new DrupalAsyncCompletedEventArgs<bool>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.FlagIsFlaggedCompleted (this, new DrupalAsyncCompletedEventArgs<bool> (result, ex, asyncResult.AsyncState));
+					this.FlagIsFlaggedCompleted(this, new DrupalAsyncCompletedEventArgs<bool>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}

@@ -2,6 +2,11 @@
 using CookComputing.XmlRpc;
 namespace Drupal7.Services
 {
+	public struct DrupalUserToken
+	{
+		public string token;
+	}
+
 	/// <summary>
 	/// https://www.drupal.org/project/services
 	/// </summary>
@@ -15,6 +20,7 @@ namespace Drupal7.Services
 		private AsyncCallback UserLoginOperationCompleted;
 		private AsyncCallback UserLogoutOperationCompleted;
 		private AsyncCallback UserRegisterOperationCompleted;
+		private AsyncCallback UserTokenOperationCompleted;
 		
 		public event DrupalAsyncCompletedEventHandler<DrupalUser> UserRetrieveCompleted;
 		public event DrupalAsyncCompletedEventHandler<DrupalUser> UserCreateCompleted;
@@ -24,275 +30,310 @@ namespace Drupal7.Services
 		public event DrupalAsyncCompletedEventHandler<DrupalSessionObject> UserLoginCompleted;
 		public event DrupalAsyncCompletedEventHandler<bool> UserLogoutCompleted;
 		public event DrupalAsyncCompletedEventHandler<DrupalUser> UserRegisterCompleted;
+		public event DrupalAsyncCompletedEventHandler<DrupalUserToken> UserTokenCompleted;
 
-		public DrupalUser UserRetrieve (int uid)
+		public DrupalUser UserRetrieve(int uid)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			DrupalUser res = default(DrupalUser);
 			try {
-				res = drupalServiceSystem.UserRetrieve (uid);
+				res = drupalServiceSystem.UserRetrieve(uid);
 			} catch (Exception ex) {
-				this.HandleException (ex, "UserRetrieve");
+				this.HandleException(ex, "UserRetrieve");
 			}
 			return res;
 		}
 		
-		public void UserRetrieveAsync (int uid, object asyncState)
+		public void UserRetrieveAsync(int uid, object asyncState)
 		{
 			if (this.UserRetrieveOperationCompleted == null) {
-				this.UserRetrieveOperationCompleted = new AsyncCallback (this.OnUserRetrieveCompleted);
+				this.UserRetrieveOperationCompleted = new AsyncCallback(this.OnUserRetrieveCompleted);
 			}
-			drupalServiceSystem.BeginUserRetrieve (uid, this.UserRetrieveOperationCompleted, asyncState);
+			drupalServiceSystem.BeginUserRetrieve(uid, this.UserRetrieveOperationCompleted, asyncState);
 		}
 
-		void OnUserRetrieveCompleted (IAsyncResult asyncResult)
+		void OnUserRetrieveCompleted(IAsyncResult asyncResult)
 		{
 			if (this.UserRetrieveCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				DrupalUser result = default(DrupalUser);
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserRetrieve (asyncResult);
-					this.UserRetrieveCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserRetrieve(asyncResult);
+					this.UserRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserRetrieveCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser> (result, ex, asyncResult.AsyncState));
+					this.UserRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public DrupalUser UserCreate (XmlRpcStruct account)
+		public DrupalUser UserCreate(XmlRpcStruct account)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			DrupalUser res = default(DrupalUser);
 			try {
-				res = drupalServiceSystem.UserCreate (account);
+				res = drupalServiceSystem.UserCreate(account);
 			} catch (Exception ex) {
-				this.HandleException (ex, "UserCreate");
+				this.HandleException(ex, "UserCreate");
 			}
 			return res;
 		}
 		
-		public void UserCreateAsync (XmlRpcStruct account, object asyncState)
+		public void UserCreateAsync(XmlRpcStruct account, object asyncState)
 		{
 			if (this.UserCreateOperationCompleted == null) {
-				this.UserCreateOperationCompleted = new AsyncCallback (this.OnUserCreateCompleted);
+				this.UserCreateOperationCompleted = new AsyncCallback(this.OnUserCreateCompleted);
 			}
-			drupalServiceSystem.BeginUserCreate (account, this.UserCreateOperationCompleted, asyncState);
+			drupalServiceSystem.BeginUserCreate(account, this.UserCreateOperationCompleted, asyncState);
 		}
 
-		void OnUserCreateCompleted (IAsyncResult asyncResult)
+		void OnUserCreateCompleted(IAsyncResult asyncResult)
 		{
 			if (this.UserCreateCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				DrupalUser result = default(DrupalUser);
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserCreate (asyncResult);
-					this.UserCreateCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserCreate(asyncResult);
+					this.UserCreateCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserCreateCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser> (result, ex, asyncResult.AsyncState));
+					this.UserCreateCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public DrupalUser UserUpdate (int uid, XmlRpcStruct account)
+		public DrupalUser UserUpdate(int uid, XmlRpcStruct account)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			DrupalUser res = default(DrupalUser);
 			try {
-				res = drupalServiceSystem.UserUpdate (uid, account);
+				res = drupalServiceSystem.UserUpdate(uid, account);
 			} catch (Exception ex) {
-				this.HandleException (ex, "UserUpdate");
+				this.HandleException(ex, "UserUpdate");
 			}
 			return res;
 		}
 		
-		public void UserUpdateAsync (int uid, XmlRpcStruct account, object asyncState)
+		public void UserUpdateAsync(int uid, XmlRpcStruct account, object asyncState)
 		{
 			if (this.UserUpdateOperationCompleted == null) {
-				this.UserUpdateOperationCompleted = new AsyncCallback (this.OnUserUpdateCompleted);
+				this.UserUpdateOperationCompleted = new AsyncCallback(this.OnUserUpdateCompleted);
 			}
-			drupalServiceSystem.BeginUserUpdate (uid, account, this.UserUpdateOperationCompleted, asyncState);
+			drupalServiceSystem.BeginUserUpdate(uid, account, this.UserUpdateOperationCompleted, asyncState);
 		}
 
-		void OnUserUpdateCompleted (IAsyncResult asyncResult)
+		void OnUserUpdateCompleted(IAsyncResult asyncResult)
 		{
 			if (this.UserUpdateCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				DrupalUser result = default(DrupalUser);
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserUpdate (asyncResult);
-					this.UserUpdateCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserUpdate(asyncResult);
+					this.UserUpdateCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserUpdateCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser> (result, ex, asyncResult.AsyncState));
+					this.UserUpdateCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public bool UserDelete (int uid)
+		public bool UserDelete(int uid)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			bool res = false;
 			try {
-				res = drupalServiceSystem.UserDelete (uid);
+				res = drupalServiceSystem.UserDelete(uid);
 			} catch (Exception ex) {
-				this.HandleException (ex, "UserDelete");
+				this.HandleException(ex, "UserDelete");
 			}
 			return res;
 		}
 		
-		public void UserDeleteAsync (int uid, object asyncState)
+		public void UserDeleteAsync(int uid, object asyncState)
 		{
 			if (this.UserDeleteOperationCompleted == null) {
-				this.UserDeleteOperationCompleted = new AsyncCallback (this.OnUserDeleteCompleted);
+				this.UserDeleteOperationCompleted = new AsyncCallback(this.OnUserDeleteCompleted);
 			}
-			drupalServiceSystem.BeginUserDelete (uid, this.UserDeleteOperationCompleted, asyncState);
+			drupalServiceSystem.BeginUserDelete(uid, this.UserDeleteOperationCompleted, asyncState);
 		}
 
-		void OnUserDeleteCompleted (IAsyncResult asyncResult)
+		void OnUserDeleteCompleted(IAsyncResult asyncResult)
 		{
 			if (this.UserDeleteCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				bool result = false;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserDelete (asyncResult);
-					this.UserDeleteCompleted (this, new DrupalAsyncCompletedEventArgs<bool> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserDelete(asyncResult);
+					this.UserDeleteCompleted(this, new DrupalAsyncCompletedEventArgs<bool>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserDeleteCompleted (this, new DrupalAsyncCompletedEventArgs<bool> (result, ex, asyncResult.AsyncState));
+					this.UserDeleteCompleted(this, new DrupalAsyncCompletedEventArgs<bool>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public DrupalUser[] UserIndex (int page, string fields, XmlRpcStruct parameters, int page_size)
+		public DrupalUser[] UserIndex(int page, string fields, XmlRpcStruct parameters, int page_size)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			DrupalUser[] res = null;
 			try {
-				res = drupalServiceSystem.UserIndex (page, fields, parameters, page_size);
+				res = drupalServiceSystem.UserIndex(page, fields, parameters, page_size);
 			} catch (Exception ex) {
-				this.HandleException (ex, "UserIndex");
+				this.HandleException(ex, "UserIndex");
 			}
 			return res;
 		}
 
-		public void UserIndexAsync (int page, string fields, XmlRpcStruct parameters, int page_size, object asyncState)
+		public void UserIndexAsync(int page, string fields, XmlRpcStruct parameters, int page_size, object asyncState)
 		{
 			if (this.UserIndexOperationCompleted == null) {
-				this.UserIndexOperationCompleted = new AsyncCallback (this.OnUserIndexCompleted);
+				this.UserIndexOperationCompleted = new AsyncCallback(this.OnUserIndexCompleted);
 			}
-			drupalServiceSystem.BeginUserIndex (page, fields, parameters, page_size, this.UserIndexOperationCompleted, asyncState);
+			drupalServiceSystem.BeginUserIndex(page, fields, parameters, page_size, this.UserIndexOperationCompleted, asyncState);
 		}
 
-		void OnUserIndexCompleted (IAsyncResult asyncResult)
+		void OnUserIndexCompleted(IAsyncResult asyncResult)
 		{
 			if (this.UserIndexCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				DrupalUser[] result = null;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserIndex (asyncResult);
-					this.UserIndexCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser[]> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserIndex(asyncResult);
+					this.UserIndexCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser[]>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserIndexCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser[]> (result, ex, asyncResult.AsyncState));
+					this.UserIndexCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser[]>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public DrupalSessionObject UserLogin (string username, string password)
+		public DrupalSessionObject UserLogin(string username, string password)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			DrupalSessionObject res = default(DrupalSessionObject);
 			try {
-				res = drupalServiceSystem.UserLogin (username, password);
+				res = drupalServiceSystem.UserLogin(username, password);
 			} catch (Exception ex) {
-				this.HandleException (ex, "UserLogin");
+				this.HandleException(ex, "UserLogin");
 			}
 			return res;
 		}
 
-		public void UserLoginAsync (string username, string password, object asyncState)
+		public void UserLoginAsync(string username, string password, object asyncState)
 		{
 			if (this.UserLoginOperationCompleted == null) {
-				this.UserLoginOperationCompleted = new AsyncCallback (this.OnUserLoginCompleted);
+				this.UserLoginOperationCompleted = new AsyncCallback(this.OnUserLoginCompleted);
 			}
-			drupalServiceSystem.BeginUserLogin (username, password, this.UserLoginOperationCompleted, asyncState);
+			drupalServiceSystem.BeginUserLogin(username, password, this.UserLoginOperationCompleted, asyncState);
 		}
 
-		void OnUserLoginCompleted (IAsyncResult asyncResult)
+		void OnUserLoginCompleted(IAsyncResult asyncResult)
 		{
 			if (this.UserLoginCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				DrupalSessionObject result = default(DrupalSessionObject);
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserLogin (asyncResult);
-					this.UserLoginCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalSessionObject> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserLogin(asyncResult);
+					this.UserLoginCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalSessionObject>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserLoginCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalSessionObject> (result, ex, asyncResult.AsyncState));
+					this.UserLoginCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalSessionObject>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public bool UserLogout ()
+		public bool UserLogout()
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			bool res = false;
 			try {
-				res = drupalServiceSystem.UserLogout ();
+				res = drupalServiceSystem.UserLogout();
 			} catch (Exception ex) {
-				this.HandleException (ex, "UserLogout");
+				this.HandleException(ex, "UserLogout");
 			}
 			return res;
 		}
 		
-		public void UserLogoutAsync (object asyncState)
+		public void UserLogoutAsync(object asyncState)
 		{
 			if (this.UserLogoutOperationCompleted == null) {
-				this.UserLogoutOperationCompleted = new AsyncCallback (this.OnUserLogoutCompleted);
+				this.UserLogoutOperationCompleted = new AsyncCallback(this.OnUserLogoutCompleted);
 			}
-			drupalServiceSystem.BeginUserLogout (this.UserLogoutOperationCompleted, asyncState);
+			drupalServiceSystem.BeginUserLogout(this.UserLogoutOperationCompleted, asyncState);
 		}
 
-		void OnUserLogoutCompleted (IAsyncResult asyncResult)
+		void OnUserLogoutCompleted(IAsyncResult asyncResult)
 		{
 			if (this.UserLogoutCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				bool result = false;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserLogout (asyncResult);
-					this.UserLogoutCompleted (this, new DrupalAsyncCompletedEventArgs<bool> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserLogout(asyncResult);
+					this.UserLogoutCompleted(this, new DrupalAsyncCompletedEventArgs<bool>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserLogoutCompleted (this, new DrupalAsyncCompletedEventArgs<bool> (result, ex, asyncResult.AsyncState));
+					this.UserLogoutCompleted(this, new DrupalAsyncCompletedEventArgs<bool>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public DrupalUser UserRegister (XmlRpcStruct account)
+		public DrupalUser UserRegister(XmlRpcStruct account)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			DrupalUser res = default(DrupalUser);
 			try {
-				res = drupalServiceSystem.UserRegister (account);
+				res = drupalServiceSystem.UserRegister(account);
 			} catch (Exception ex) {
-				this.HandleException (ex, "UserRegister");
+				this.HandleException(ex, "UserRegister");
 			}
 			return res;
 		}
 
-		public void UserRegisterAsync (XmlRpcStruct account, object asyncState)
+		public void UserRegisterAsync(XmlRpcStruct account, object asyncState)
 		{
 			if (this.UserRegisterOperationCompleted == null) {
-				this.UserRegisterOperationCompleted = new AsyncCallback (this.OnUserRegisterCompleted);
+				this.UserRegisterOperationCompleted = new AsyncCallback(this.OnUserRegisterCompleted);
 			}
-			drupalServiceSystem.BeginUserRegister (account, this.UserRegisterOperationCompleted, asyncState);
+			drupalServiceSystem.BeginUserRegister(account, this.UserRegisterOperationCompleted, asyncState);
 		}
 
-		void OnUserRegisterCompleted (IAsyncResult asyncResult)
+		void OnUserRegisterCompleted(IAsyncResult asyncResult)
 		{
 			if (this.UserRegisterCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				DrupalUser result = default(DrupalUser);
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserRegister (asyncResult);
-					this.UserRegisterCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserRegister(asyncResult);
+					this.UserRegisterCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserRegisterCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalUser> (result, ex, asyncResult.AsyncState));
+					this.UserRegisterCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, ex, asyncResult.AsyncState));
+				}
+			}
+		}
+		
+		public DrupalUserToken UserToken()
+		{
+			this.InitRequest();
+			DrupalUserToken res = default(DrupalUserToken);
+			try {
+				res = drupalServiceSystem.UserToken();
+			} catch (Exception ex) {
+				this.HandleException(ex, "UserToken");
+			}
+			return res;
+		}
+		
+		public void UserTokenAsync(object asyncState)
+		{
+			if (this.UserTokenOperationCompleted == null) {
+				this.UserTokenOperationCompleted = new AsyncCallback(this.OnUserTokenCompleted);
+			}
+			drupalServiceSystem.BeginUserToken(this.UserUpdateOperationCompleted, asyncState);
+		}
+
+		void OnUserTokenCompleted(IAsyncResult asyncResult)
+		{
+			if (this.UserTokenCompleted != null) {
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
+				DrupalUserToken result = default(DrupalUserToken);
+				try {
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserToken(asyncResult);
+					this.UserTokenCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUserToken>(result, null, asyncResult.AsyncState));
+				} catch (Exception ex) {
+					this.UserTokenCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUserToken>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}

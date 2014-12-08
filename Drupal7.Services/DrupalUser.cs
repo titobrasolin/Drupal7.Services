@@ -5,7 +5,7 @@ namespace Drupal7.Services
 	[XmlRpcMissingMapping(MappingAction.Ignore)]
 	public struct DrupalUser
 	{
-        public object uid;
+		public object uid;
 		public object login;
 		public string access;
 		public string init;
@@ -21,6 +21,6 @@ namespace Drupal7.Services
 		public XmlRpcStruct rdf_mapping;
 		public XmlRpcStruct roles;
 		public string language;
-        public string mail;
+		public string mail;
 	}
 }

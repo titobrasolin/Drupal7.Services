@@ -17,116 +17,132 @@ namespace Drupal7.Services
 		// public event DrupalAsyncCompletedEventHandler<...> SystemSetVariableCompleted;
 		// public event DrupalAsyncCompletedEventHandler<...> SystemDelVariableCompleted;
 
-		public DrupalSessionObject SystemConnect ()
+		/// <summary>
+		/// Returns the details of currently logged in user.
+		/// </summary>
+		/// <returns>Object with session id, session name and a user object.</returns>
+		public DrupalSessionObject SystemConnect()
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			DrupalSessionObject res = default(DrupalSessionObject);
 			try {
-				res = drupalServiceSystem.SystemConnect ();
+				res = drupalServiceSystem.SystemConnect();
 			} catch (Exception ex) {
-				this.HandleException (ex, "SystemConnect");
+				this.HandleException(ex, "SystemConnect");
 			}
 			return res;
 		}
 
-		public void SystemConnectAsync (object asyncState)
+		public void SystemConnectAsync(object asyncState)
 		{
 			if (this.SystemConnectOperationCompleted == null) {
-				this.SystemConnectOperationCompleted = new AsyncCallback (this.OnSystemConnectCompleted);
+				this.SystemConnectOperationCompleted = new AsyncCallback(this.OnSystemConnectCompleted);
 			}
-			drupalServiceSystem.BeginSystemConnect (this.SystemConnectOperationCompleted, asyncState);
+			drupalServiceSystem.BeginSystemConnect(this.SystemConnectOperationCompleted, asyncState);
 		}
 
-		void OnSystemConnectCompleted (IAsyncResult asyncResult)
+		void OnSystemConnectCompleted(IAsyncResult asyncResult)
 		{
 			if (this.SystemConnectCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				DrupalSessionObject result = default(DrupalSessionObject);
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndSystemConnect (asyncResult);
-					this.SystemConnectCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalSessionObject> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndSystemConnect(asyncResult);
+					this.SystemConnectCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalSessionObject>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.SystemConnectCompleted (this, new DrupalAsyncCompletedEventArgs<DrupalSessionObject> (result, ex, asyncResult.AsyncState));
+					this.SystemConnectCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalSessionObject>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public object SystemGetVariable (string name, object @default)
+		public object SystemGetVariable(string name, object @default)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			object res = null;
 			try {
-				res = drupalServiceSystem.SystemGetVariable (name, @default);
+				res = drupalServiceSystem.SystemGetVariable(name, @default);
 			} catch (Exception ex) {
-				this.HandleException (ex, "SystemGetVariable");
+				this.HandleException(ex, "SystemGetVariable");
 			}
 			return res;
 		}
 
-		public void SystemGetVariableAsync (string name, object @default, object asyncState)
+		public void SystemGetVariableAsync(string name, object @default, object asyncState)
 		{
 			if (this.SystemGetVariableOperationCompleted == null) {
-				this.SystemGetVariableOperationCompleted = new AsyncCallback (this.OnSystemGetVariableCompleted);
+				this.SystemGetVariableOperationCompleted = new AsyncCallback(this.OnSystemGetVariableCompleted);
 			}
-			drupalServiceSystem.BeginSystemGetVariable (name, @default, this.SystemGetVariableOperationCompleted, asyncState);
+			drupalServiceSystem.BeginSystemGetVariable(name, @default, this.SystemGetVariableOperationCompleted, asyncState);
 		}
 
-		void OnSystemGetVariableCompleted (IAsyncResult asyncResult)
+		void OnSystemGetVariableCompleted(IAsyncResult asyncResult)
 		{
 			if (this.SystemGetVariableCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				object result = null;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndSystemGetVariable (asyncResult);
-					this.SystemGetVariableCompleted (this, new DrupalAsyncCompletedEventArgs<object> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndSystemGetVariable(asyncResult);
+					this.SystemGetVariableCompleted(this, new DrupalAsyncCompletedEventArgs<object>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.SystemGetVariableCompleted (this, new DrupalAsyncCompletedEventArgs<object> (result, ex, asyncResult.AsyncState));
+					this.SystemGetVariableCompleted(this, new DrupalAsyncCompletedEventArgs<object>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public void SystemSetVariable (string name, object @value)
+		/// <summary>
+		/// Sets a persistent variable.
+		///
+		/// Case-sensitivity of the variable_* functions depends on the database
+		/// collation used. To avoid problems, always use lower case for persistent
+		/// variable names.
+		/// </summary>
+		/// <param name="name">The name of the variable to set.</param>
+		/// <param name="value">
+		/// The value to set. This can be any PHP data type; these functions take care
+		/// of serialization as necessary.
+		/// </param>
+		public void SystemSetVariable(string name, object @value)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			try {
-				drupalServiceSystem.SystemSetVariable (name, @value);
+				drupalServiceSystem.SystemSetVariable(name, @value);
 			} catch (Exception ex) {
-				this.HandleException (ex, "SystemSetVariable");
+				this.HandleException(ex, "SystemSetVariable");
 			}
 		}
 
-		public void SystemSetVariableAsync (string name, object @value, object asyncState)
+		public void SystemSetVariableAsync(string name, object @value, object asyncState)
 		{
 			if (this.SystemSetVariableOperationCompleted == null) {
-				this.SystemSetVariableOperationCompleted = new AsyncCallback (this.OnSystemSetVariableCompleted);
+				this.SystemSetVariableOperationCompleted = new AsyncCallback(this.OnSystemSetVariableCompleted);
 			}
-			drupalServiceSystem.BeginSystemSetVariable (name, @value, this.SystemSetVariableOperationCompleted, asyncState);
+			drupalServiceSystem.BeginSystemSetVariable(name, @value, this.SystemSetVariableOperationCompleted, asyncState);
 		}
 
-		void OnSystemSetVariableCompleted (IAsyncResult asyncResult)
+		void OnSystemSetVariableCompleted(IAsyncResult asyncResult)
 		{
 			// TODO OnSystemSetVariableCompleted
 		}
 
-		public void SystemDelVariable (string name)
+		public void SystemDelVariable(string name)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			try {
-				drupalServiceSystem.SystemDelVariable (name);
+				drupalServiceSystem.SystemDelVariable(name);
 			} catch (Exception ex) {
-				this.HandleException (ex, "SystemDelVariable");
+				this.HandleException(ex, "SystemDelVariable");
 			}
 		}
 
-		public void SystemDelVariableAsync (string name, object asyncState)
+		public void SystemDelVariableAsync(string name, object asyncState)
 		{
 			if (this.SystemDelVariableOperationCompleted == null) {
-				this.SystemDelVariableOperationCompleted = new AsyncCallback (this.OnSystemDelVariableCompleted);
+				this.SystemDelVariableOperationCompleted = new AsyncCallback(this.OnSystemDelVariableCompleted);
 			}
-			drupalServiceSystem.BeginSystemDelVariable (name, this.SystemDelVariableOperationCompleted, asyncState);
+			drupalServiceSystem.BeginSystemDelVariable(name, this.SystemDelVariableOperationCompleted, asyncState);
 		}
 
-		void OnSystemDelVariableCompleted (IAsyncResult asr)
+		void OnSystemDelVariableCompleted(IAsyncResult asr)
 		{
 			// TODO OnSystemDelVariableCompleted
 		}

@@ -21,206 +21,206 @@ namespace Drupal7.Services
 		public event DrupalAsyncCompletedEventHandler<XmlRpcStruct[]> TaxonomyTermIndexCompleted;
 		public event DrupalAsyncCompletedEventHandler<XmlRpcStruct[]> TaxonomyTermSelectNodesCompleted;
 
-		public object TaxonomyTermRetrieve (int tid)
+		public object TaxonomyTermRetrieve(int tid)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			object res = null;
 			try {
-				res = drupalServiceSystem.TaxonomyTermRetrieve (tid);
+				res = drupalServiceSystem.TaxonomyTermRetrieve(tid);
 			} catch (Exception ex) {
-				this.HandleException (ex, "TaxonomyTermRetrieve");
+				this.HandleException(ex, "TaxonomyTermRetrieve");
 			}
 			return res;
 		}
 
-		public void TaxonomyTermRetrieveAsync (int tid, object asyncState)
+		public void TaxonomyTermRetrieveAsync(int tid, object asyncState)
 		{
 			if (this.TaxonomyTermRetrieveOperationCompleted == null) {
-				this.TaxonomyTermRetrieveOperationCompleted = new AsyncCallback (this.OnTaxonomyTermRetrieveCompleted);
+				this.TaxonomyTermRetrieveOperationCompleted = new AsyncCallback(this.OnTaxonomyTermRetrieveCompleted);
 			}
-			drupalServiceSystem.BeginTaxonomyTermRetrieve (tid, this.TaxonomyTermRetrieveOperationCompleted, asyncState);
+			drupalServiceSystem.BeginTaxonomyTermRetrieve(tid, this.TaxonomyTermRetrieveOperationCompleted, asyncState);
 		}
 
-		void OnTaxonomyTermRetrieveCompleted (IAsyncResult asyncResult)
+		void OnTaxonomyTermRetrieveCompleted(IAsyncResult asyncResult)
 		{
 			if (this.TaxonomyTermRetrieveCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				object result = null;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermRetrieve (asyncResult);
-					this.TaxonomyTermRetrieveCompleted (this, new DrupalAsyncCompletedEventArgs<object> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermRetrieve(asyncResult);
+					this.TaxonomyTermRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<object>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.TaxonomyTermRetrieveCompleted (this, new DrupalAsyncCompletedEventArgs<object> (result, ex, asyncResult.AsyncState));
+					this.TaxonomyTermRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<object>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public int TaxonomyTermCreate (XmlRpcStruct term)
+		public int TaxonomyTermCreate(XmlRpcStruct term)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			int res = -1;
 			try {
-				res = drupalServiceSystem.TaxonomyTermCreate (term);
+				res = drupalServiceSystem.TaxonomyTermCreate(term);
 			} catch (Exception ex) {
-				this.HandleException (ex, "TaxonomyTermCreate");
+				this.HandleException(ex, "TaxonomyTermCreate");
 			}
 			return res;
 		}
 
-		public void TaxonomyTermCreateAsync (XmlRpcStruct term, object asyncState)
+		public void TaxonomyTermCreateAsync(XmlRpcStruct term, object asyncState)
 		{
 			if (this.TaxonomyTermCreateOperationCompleted == null) {
-				this.TaxonomyTermCreateOperationCompleted = new AsyncCallback (this.OnTaxonomyTermCreateCompleted);
+				this.TaxonomyTermCreateOperationCompleted = new AsyncCallback(this.OnTaxonomyTermCreateCompleted);
 			}
-			drupalServiceSystem.BeginTaxonomyTermCreate (term, this.TaxonomyTermCreateOperationCompleted, asyncState);
+			drupalServiceSystem.BeginTaxonomyTermCreate(term, this.TaxonomyTermCreateOperationCompleted, asyncState);
 		}
 
-		void OnTaxonomyTermCreateCompleted (IAsyncResult asyncResult)
+		void OnTaxonomyTermCreateCompleted(IAsyncResult asyncResult)
 		{
 			if (this.TaxonomyTermCreateCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				int result = -1;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermCreate (asyncResult);
-					this.TaxonomyTermCreateCompleted (this, new DrupalAsyncCompletedEventArgs<int> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermCreate(asyncResult);
+					this.TaxonomyTermCreateCompleted(this, new DrupalAsyncCompletedEventArgs<int>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.TaxonomyTermCreateCompleted (this, new DrupalAsyncCompletedEventArgs<int> (result, ex, asyncResult.AsyncState));
+					this.TaxonomyTermCreateCompleted(this, new DrupalAsyncCompletedEventArgs<int>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public int TaxonomyTermUpdate (int tid, XmlRpcStruct term)
+		public int TaxonomyTermUpdate(int tid, XmlRpcStruct term)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			int res = -1;
 			try {
-				res = drupalServiceSystem.TaxonomyTermUpdate (tid, term);
+				res = drupalServiceSystem.TaxonomyTermUpdate(tid, term);
 			} catch (Exception ex) {
-				this.HandleException (ex, "TaxonomyTermUpdate");
+				this.HandleException(ex, "TaxonomyTermUpdate");
 			}
 			return res;
 		}
 
-		public void TaxonomyTermUpdateAsync (int tid, XmlRpcStruct term, object asyncState)
+		public void TaxonomyTermUpdateAsync(int tid, XmlRpcStruct term, object asyncState)
 		{
 			if (this.TaxonomyTermUpdateOperationCompleted == null) {
-				this.TaxonomyTermUpdateOperationCompleted = new AsyncCallback (this.OnTaxonomyTermUpdateCompleted);
+				this.TaxonomyTermUpdateOperationCompleted = new AsyncCallback(this.OnTaxonomyTermUpdateCompleted);
 			}
-			drupalServiceSystem.BeginTaxonomyTermUpdate (tid, term, this.TaxonomyTermUpdateOperationCompleted, asyncState);
+			drupalServiceSystem.BeginTaxonomyTermUpdate(tid, term, this.TaxonomyTermUpdateOperationCompleted, asyncState);
 		}
 
-		void OnTaxonomyTermUpdateCompleted (IAsyncResult asyncResult)
+		void OnTaxonomyTermUpdateCompleted(IAsyncResult asyncResult)
 		{
 			if (this.TaxonomyTermUpdateCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				int result = -1;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermUpdate (asyncResult);
-					this.TaxonomyTermUpdateCompleted (this, new DrupalAsyncCompletedEventArgs<int> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermUpdate(asyncResult);
+					this.TaxonomyTermUpdateCompleted(this, new DrupalAsyncCompletedEventArgs<int>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.TaxonomyTermUpdateCompleted (this, new DrupalAsyncCompletedEventArgs<int> (result, ex, asyncResult.AsyncState));
+					this.TaxonomyTermUpdateCompleted(this, new DrupalAsyncCompletedEventArgs<int>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public int TaxonomyTermDelete (int tid)
+		public int TaxonomyTermDelete(int tid)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			int res = -1;
 			try {
-				res = drupalServiceSystem.TaxonomyTermDelete (tid);
+				res = drupalServiceSystem.TaxonomyTermDelete(tid);
 			} catch (Exception ex) {
-				this.HandleException (ex, "TaxonomyTermDelete");
+				this.HandleException(ex, "TaxonomyTermDelete");
 			}
 			return res;
 		}
 
-		public void TaxonomyTermDeleteAsync (int tid, object asyncState)
+		public void TaxonomyTermDeleteAsync(int tid, object asyncState)
 		{
 			if (this.TaxonomyTermDeleteOperationCompleted == null) {
-				this.TaxonomyTermDeleteOperationCompleted = new AsyncCallback (this.OnTaxonomyTermDeleteCompleted);
+				this.TaxonomyTermDeleteOperationCompleted = new AsyncCallback(this.OnTaxonomyTermDeleteCompleted);
 			}
-			drupalServiceSystem.BeginTaxonomyTermDelete (tid, this.TaxonomyTermDeleteOperationCompleted, asyncState);
+			drupalServiceSystem.BeginTaxonomyTermDelete(tid, this.TaxonomyTermDeleteOperationCompleted, asyncState);
 		}
 
-		void OnTaxonomyTermDeleteCompleted (IAsyncResult asyncResult)
+		void OnTaxonomyTermDeleteCompleted(IAsyncResult asyncResult)
 		{
 			if (this.TaxonomyTermDeleteCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				int result = -1;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermDelete (asyncResult);
-					this.TaxonomyTermDeleteCompleted (this, new DrupalAsyncCompletedEventArgs<int> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermDelete(asyncResult);
+					this.TaxonomyTermDeleteCompleted(this, new DrupalAsyncCompletedEventArgs<int>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.TaxonomyTermDeleteCompleted (this, new DrupalAsyncCompletedEventArgs<int> (result, ex, asyncResult.AsyncState));
+					this.TaxonomyTermDeleteCompleted(this, new DrupalAsyncCompletedEventArgs<int>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public XmlRpcStruct[] TaxonomyTermIndex (int page, string fields, XmlRpcStruct parameters, int page_size)
+		public XmlRpcStruct[] TaxonomyTermIndex(int page, string fields, XmlRpcStruct parameters, int page_size)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			XmlRpcStruct[] res = null;
 			try {
-				res = drupalServiceSystem.TaxonomyTermIndex (page, fields, parameters, page_size);
+				res = drupalServiceSystem.TaxonomyTermIndex(page, fields, parameters, page_size);
 			} catch (Exception ex) {
-				this.HandleException (ex, "TaxonomyTermIndex");
+				this.HandleException(ex, "TaxonomyTermIndex");
 			}
 			return res;
 		}
 
-		public void TaxonomyTermIndexAsync (int page, string fields, XmlRpcStruct parameters, int page_size, object asyncState)
+		public void TaxonomyTermIndexAsync(int page, string fields, XmlRpcStruct parameters, int page_size, object asyncState)
 		{
 			if (this.TaxonomyTermIndexOperationCompleted == null) {
-				this.TaxonomyTermIndexOperationCompleted = new AsyncCallback (this.OnTaxonomyTermIndexCompleted);
+				this.TaxonomyTermIndexOperationCompleted = new AsyncCallback(this.OnTaxonomyTermIndexCompleted);
 			}
-			drupalServiceSystem.BeginTaxonomyTermIndex (page, fields, parameters, page_size, this.TaxonomyTermIndexOperationCompleted, asyncState);
+			drupalServiceSystem.BeginTaxonomyTermIndex(page, fields, parameters, page_size, this.TaxonomyTermIndexOperationCompleted, asyncState);
 		}
 
-		void OnTaxonomyTermIndexCompleted (IAsyncResult asyncResult)
+		void OnTaxonomyTermIndexCompleted(IAsyncResult asyncResult)
 		{
 			if (this.TaxonomyTermIndexCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				XmlRpcStruct[] result = null;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermIndex (asyncResult);
-					this.TaxonomyTermIndexCompleted (this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct[]> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermIndex(asyncResult);
+					this.TaxonomyTermIndexCompleted(this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct[]>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.TaxonomyTermIndexCompleted (this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct[]> (result, ex, asyncResult.AsyncState));
+					this.TaxonomyTermIndexCompleted(this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct[]>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
 
-		public XmlRpcStruct[] TaxonomyTermSelectNodes (int tid, bool pager, bool limit, XmlRpcStruct order)
+		public XmlRpcStruct[] TaxonomyTermSelectNodes(int tid, bool pager, bool limit, XmlRpcStruct order)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			XmlRpcStruct[] res = null;
 			try {
-				res = drupalServiceSystem.TaxonomyTermSelectNodes (tid, pager, limit, order);
+				res = drupalServiceSystem.TaxonomyTermSelectNodes(tid, pager, limit, order);
 			} catch (Exception ex) {
-				this.HandleException (ex, "TaxonomyTermSelectNodes");
+				this.HandleException(ex, "TaxonomyTermSelectNodes");
 			}
 			return res;
 		}
 
-		public void TaxonomyTermSelectNodesAsync (int tid, bool pager, bool limit, XmlRpcStruct order, object asyncState)
+		public void TaxonomyTermSelectNodesAsync(int tid, bool pager, bool limit, XmlRpcStruct order, object asyncState)
 		{
 			if (this.TaxonomyTermSelectNodesOperationCompleted == null) {
-				this.TaxonomyTermSelectNodesOperationCompleted = new AsyncCallback (this.OnTaxonomyTermSelectNodesCompleted);
+				this.TaxonomyTermSelectNodesOperationCompleted = new AsyncCallback(this.OnTaxonomyTermSelectNodesCompleted);
 			}
-			drupalServiceSystem.BeginTaxonomyTermSelectNodes (tid, pager, limit, order, this.TaxonomyTermSelectNodesOperationCompleted, asyncState);
+			drupalServiceSystem.BeginTaxonomyTermSelectNodes(tid, pager, limit, order, this.TaxonomyTermSelectNodesOperationCompleted, asyncState);
 		}
 
-		void OnTaxonomyTermSelectNodesCompleted (IAsyncResult asyncResult)
+		void OnTaxonomyTermSelectNodesCompleted(IAsyncResult asyncResult)
 		{
 			if (this.TaxonomyTermSelectNodesCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				XmlRpcStruct[] result = null;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermSelectNodes (asyncResult);
-					this.TaxonomyTermSelectNodesCompleted (this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct[]> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndTaxonomyTermSelectNodes(asyncResult);
+					this.TaxonomyTermSelectNodesCompleted(this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct[]>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.TaxonomyTermSelectNodesCompleted (this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct[]> (result, ex, asyncResult.AsyncState));
+					this.TaxonomyTermSelectNodesCompleted(this, new DrupalAsyncCompletedEventArgs<XmlRpcStruct[]>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}

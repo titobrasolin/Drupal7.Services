@@ -11,36 +11,36 @@ namespace Drupal7.Services
 		
 		public event DrupalAsyncCompletedEventHandler<object> MenuRetrieveCompleted;
 
-		public object MenuRetrieve (string menu_name)
+		public object MenuRetrieve(string menu_name)
 		{
-			this.InitRequest ();
+			this.InitRequest();
 			object res = null;
 			try {
-				res = drupalServiceSystem.MenuRetrieve (menu_name);
+				res = drupalServiceSystem.MenuRetrieve(menu_name);
 			} catch (Exception ex) {
-				this.HandleException (ex, "MenuRetrieve");
+				this.HandleException(ex, "MenuRetrieve");
 			}
 			return res;
 		}
 		
-		public void MenuRetrieveAsync (string menu_name, object asyncState)
+		public void MenuRetrieveAsync(string menu_name, object asyncState)
 		{
 			if (this.MenuRetrieveOperationCompleted == null) {
-				this.MenuRetrieveOperationCompleted = new AsyncCallback (this.OnMenuRetrieveCompleted);
+				this.MenuRetrieveOperationCompleted = new AsyncCallback(this.OnMenuRetrieveCompleted);
 			}
-			drupalServiceSystem.BeginMenuRetrieve (menu_name, this.MenuRetrieveOperationCompleted, asyncState);
+			drupalServiceSystem.BeginMenuRetrieve(menu_name, this.MenuRetrieveOperationCompleted, asyncState);
 		}
 
-		void OnMenuRetrieveCompleted (IAsyncResult asyncResult)
+		void OnMenuRetrieveCompleted(IAsyncResult asyncResult)
 		{
 			if (this.MenuRetrieveCompleted != null) {
-				XmlRpcAsyncResult clientResult = (XmlRpcAsyncResult)asyncResult;
+				var clientResult = (XmlRpcAsyncResult)asyncResult;
 				object result = null;
 				try {
-					result = ((IServiceSystem)clientResult.ClientProtocol).EndMenuRetrieve (asyncResult);
-					this.MenuRetrieveCompleted (this, new DrupalAsyncCompletedEventArgs<object> (result, null, asyncResult.AsyncState));
+					result = ((IServiceSystem)clientResult.ClientProtocol).EndMenuRetrieve(asyncResult);
+					this.MenuRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<object>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.MenuRetrieveCompleted (this, new DrupalAsyncCompletedEventArgs<object> (result, ex, asyncResult.AsyncState));
+					this.MenuRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<object>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
