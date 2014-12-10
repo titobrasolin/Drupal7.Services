@@ -60,6 +60,9 @@ namespace Drupal7.Services
 
 		[XmlRpcMethod("comment.retrieve")]
 		object CommentRetrieve(int cid);
+		
+		[XmlRpcMethod("comment.retrieve")]
+		DrupalComment CommentRetrieve2(int cid);
 
 		[XmlRpcBegin("comment.retrieve")]
 		IAsyncResult BeginCommentRetrieve(int cid, AsyncCallback callback, object asyncState);
