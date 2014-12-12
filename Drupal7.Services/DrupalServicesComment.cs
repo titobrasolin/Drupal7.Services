@@ -10,7 +10,7 @@ namespace Drupal7.Services
 	}
 
 	[XmlRpcMissingMapping(MappingAction.Ignore)]
-	public struct DrupalComment
+	public class DrupalComment
 	{
 		public struct comment_body_t
 		{
@@ -243,16 +243,16 @@ namespace Drupal7.Services
 			return res;
 		}
 
-		public DrupalComment CommentRetrieve2(int cid)
+		public bool TryCommentRetrieve(int cid, out DrupalComment result)
 		{
+			result = null;
 			this.InitRequest();
-			DrupalComment res = default(DrupalComment);
 			try {
-				res = drupalServiceSystem.CommentRetrieve2(cid);
+				result = drupalServiceSystem.CommentRetrieve2(cid);
 			} catch (Exception ex) {
-				this.HandleException(ex, "CommentRetrieve2");
+				this.HandleException(ex, "TryCommentRetrieve");
 			}
-			return res;
+			return (result != null) && (this.ErrorCode == 0);
 		}
 
 		public void CommentRetrieveAsync(int cid, object asyncState)
