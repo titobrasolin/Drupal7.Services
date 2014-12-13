@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CookComputing.XmlRpc;
 namespace Drupal7.Services
 {
@@ -12,65 +13,61 @@ namespace Drupal7.Services
 	[XmlRpcMissingMapping(MappingAction.Ignore)]
 	public class DrupalComment
 	{
-		public struct comment_body_t
+		public struct CommentBodyItem
 		{
-			public struct und_t
-			{
-				public string value;
-				public string format;
-				public string safe_value;
-			}
-			public und_t[] und;
+			public string value;
+			public string format;
+			public string safe_value;
 		}
-
-		public struct rdf_mapping_t
+		public struct RdfMapping
 		{
-			public struct title_t
+			public struct Title
 			{
 				public string[] predicates;
 			}
-			public struct created_t
-			{
-				public string[] predicates;
-				public string callback;
-				public string datatype;
-			}
-			public struct changed_t
+			public struct Created
 			{
 				public string[] predicates;
 				public string callback;
 				public string datatype;
 			}
-			public struct comment_body_t
+			public struct Changed
+			{
+				public string[] predicates;
+				public string callback;
+				public string datatype;
+			}
+			public struct CommentBody
 			{
 				public string[] predicates;
 			}
-			public struct pid_t
+			public struct Pid
 			{
 				public string[] predicates;
 				public string type;
 			}
-			public struct uid_t
+			public struct Uid
 			{
 				public string[] predicates;
 				public string type;
 			}
-			public struct name_t
+			public struct Name
 			{
 				public string[] predicates;
 			}
 
 			public string[] rdftype;
-			public title_t title;
-			public created_t created;
-			public changed_t changed;
-			public comment_body_t comment_body;
-			public pid_t pid;
-			public uid_t uid;
-			public name_t name;
+			public Title title;
+			public Created created;
+			public Changed changed;
+			public CommentBody comment_body;
+			public Pid pid;
+			public Uid uid;
+			public Name name;
 		}
 
-		public struct rdf_data_t
+		[XmlRpcMissingMapping(MappingAction.Ignore)]
+		public struct RdfData
 		{
 			public struct date_t
 			{
@@ -80,7 +77,27 @@ namespace Drupal7.Services
 			}
 			public date_t date;
 			public string pid_uri;
+			// Can be missing if there's no parent.
 			public string nid_uri;
+		}
+		
+		public struct TranslationsItem
+		{
+			public string language;
+			public string entity_type;
+			public string source;
+			public string status;
+			public string changed;
+			public string entity_id;
+			public string uid;
+			public string created;
+			public string translate;
+		}
+
+		public struct Translations
+		{
+			public object data;
+			public string original;
 		}
 
 		public string cid;
@@ -104,9 +121,34 @@ namespace Drupal7.Services
 		public string signature_format;
 		public string picture;
 		public int @new;
-		public comment_body_t comment_body;
-		public rdf_mapping_t rdf_mapping;
-		public rdf_data_t rdf_data;
+		public XmlRpcStruct comment_body;
+		public Translations translations;
+		public RdfMapping rdf_mapping;
+		public RdfData rdf_data;
+		
+		public CommentBodyItem[] GetBodyItems()
+		{
+			CommentBodyItem[] result;
+			if (this.comment_body == null) {
+				return null;
+			}
+			var ary = this.comment_body[this.language] as object[];
+			if (ary == null) {
+				return null;
+			}
+			int len = ary.Length;
+			result = new CommentBodyItem[len];
+			XmlRpcStruct item;
+			for (int i = 0; i < len; i++) {
+				item = ary[i] as XmlRpcStruct;
+				if (item != null) {
+					result[i].value = item["value"] as string;
+					result[i].format = item["format"] as string;
+					result[i].safe_value = item["safe_value"] as string;
+				}
+			}
+			return result;
+		}
 	}
 
 	/// <summary>
