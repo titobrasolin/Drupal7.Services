@@ -56,6 +56,12 @@
     <Compile Include="DrupalServicesNode.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
+    <Compile Include="DrupalServicesSearchNode.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesSearchUser.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrupalServicesSystem.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
@@ -73,9 +79,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IServiceSystem.cs" />
-    <Compile Include="DrupalFile.cs" />
     <Compile Include="DrupalSessionObject.cs" />
-    <Compile Include="DrupalUser.cs" />
     <Compile Include="DrupalServices.cs" />
     <Compile Include="DrupalAsyncCompletedEventArgs.cs" />
   </ItemGroup>
