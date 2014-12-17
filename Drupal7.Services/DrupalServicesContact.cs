@@ -29,5 +29,29 @@ namespace Drupal7.Services
 			}
 			return res;
 		}
+
+		public bool ContactSite(string name, string mail, string subject, int cid, string message, bool copy)
+		{
+			this.InitRequest();
+			bool res = false;
+			try {
+				res = drupalServiceSystem.ContactSite(name, mail, subject, cid, message, copy);
+			} catch (Exception ex) {
+				this.HandleException(ex, "ContactSite");
+			}
+			return res;
+		}
+
+		public bool ContactPersonal(string name, string mail, string to, string subject, string message, bool copy)
+		{
+			this.InitRequest();
+			bool res = false;
+			try {
+				res = drupalServiceSystem.ContactPersonal(name, mail, to, subject, message, copy);
+			} catch (Exception ex) {
+				this.HandleException(ex, "ContactPersonal");
+			}
+			return res;
+		}
 	}
 }

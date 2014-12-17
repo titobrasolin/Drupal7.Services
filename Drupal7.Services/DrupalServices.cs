@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
@@ -118,6 +119,32 @@ namespace Drupal7.Services
 				_sessionData = default(DrupalSessionObject);
 			}	
 			return !_isLoggedIn;
+		}
+		
+
+		/// <summary>
+		/// Convert the Hashtable into XmlRpcStruct.
+		/// </summary>
+		/// <param name="value">Hashtable value.</param>
+		/// <returns>The XmlRpcStruct value.</returns>
+		public static XmlRpcStruct ConvertAs(Hashtable value)
+		{
+			XmlRpcStruct new_value;
+			new_value = new XmlRpcStruct();
+			foreach (string key in value.Keys) {
+				object res;
+				if (value[key] == null) {
+					res = "";
+				}
+				// disable once ConvertIfStatementToConditionalTernaryExpression
+				else if (value[key].GetType() == typeof(Hashtable)) {
+					res = ConvertAs((Hashtable)value[key]);
+				} else {
+					res = value[key];
+				}
+				new_value.Add(key, res);
+			}
+			return new_value;
 		}
 	}
 }

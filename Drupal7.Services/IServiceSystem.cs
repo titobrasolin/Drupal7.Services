@@ -124,6 +124,12 @@ namespace Drupal7.Services
 		[XmlRpcMethod("contact.index")]
 		DrupalContact[] ContactIndex();
 
+		[XmlRpcMethod("contact.site")]
+		bool ContactSite(string name, string mail, string subject, int cid, string message, bool copy);
+
+		[XmlRpcMethod("contact.personal")]
+		bool ContactPersonal(string name, string mail, string to, string subject, string message, bool copy);
+
 		#endregion
 
 		[XmlRpcMethod("file.create")]
