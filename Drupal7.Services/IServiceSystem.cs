@@ -119,6 +119,13 @@ namespace Drupal7.Services
 
 		#region File
 
+		#region Contact
+
+		[XmlRpcMethod("contact.index")]
+		DrupalContact[] ContactIndex();
+
+		#endregion
+
 		[XmlRpcMethod("file.create")]
 		DrupalFile FileCreate(DrupalFile file);
 

@@ -79,7 +79,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IServiceSystem.cs" />
-    <Compile Include="DrupalSessionObject.cs" />
     <Compile Include="DrupalServices.cs" />
     <Compile Include="DrupalAsyncCompletedEventArgs.cs" />
   </ItemGroup>
