@@ -38,6 +38,9 @@
     <Compile Include="DrupalServicesComment.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
+    <Compile Include="DrupalServicesContact.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrupalServicesDefinition.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
