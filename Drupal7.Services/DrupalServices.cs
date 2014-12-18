@@ -123,11 +123,11 @@ namespace Drupal7.Services
 		
 
 		/// <summary>
-		/// Convert the Hashtable into XmlRpcStruct.
+		/// Convert the IDictionary into XmlRpcStruct.
 		/// </summary>
-		/// <param name="value">Hashtable value.</param>
+		/// <param name="value">IDictionary value.</param>
 		/// <returns>The XmlRpcStruct value.</returns>
-		public static XmlRpcStruct ConvertAs(Hashtable value)
+		XmlRpcStruct ConvertAs (IDictionary value)
 		{
 			XmlRpcStruct new_value;
 			new_value = new XmlRpcStruct();
@@ -137,10 +137,12 @@ namespace Drupal7.Services
 					res = "";
 				}
 				// disable once ConvertIfStatementToConditionalTernaryExpression
-				else if (value[key].GetType() == typeof(Hashtable)) {
-					res = ConvertAs((Hashtable)value[key]);
-				} else {
-					res = value[key];
+				else {
+					if ((value[key] as IDictionary) != null) {
+						res = ConvertAs(value[key] as IDictionary);
+					} else {
+						res = value[key];
+					}
 				}
 				new_value.Add(key, res);
 			}
