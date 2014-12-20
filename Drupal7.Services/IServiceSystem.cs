@@ -50,10 +50,10 @@ namespace Drupal7.Services
 		#region Comment
 		
 		[XmlRpcMethod("comment.create")]
-		DrupalCommentCid CommentCreate(XmlRpcStruct comment);
+		DrupalCommentCid CommentCreate(object comment);
 
 		[XmlRpcBegin("comment.create")]
-		IAsyncResult BeginCommentCreate(XmlRpcStruct comment, AsyncCallback callback, object asyncState);
+		IAsyncResult BeginCommentCreate(object comment, AsyncCallback callback, object asyncState);
 
 		[XmlRpcEnd("comment.create")]
 		DrupalCommentCid EndCommentCreate(IAsyncResult asyncResult);

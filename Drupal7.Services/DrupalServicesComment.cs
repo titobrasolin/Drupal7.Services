@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using CookComputing.XmlRpc;
 namespace Drupal7.Services
 {
@@ -239,24 +239,26 @@ namespace Drupal7.Services
 		/// </summary>
 		/// <param name="comment">An object as would be returned from comment_load().</param>
 		/// <returns>Unique identifier for the comment (cid) or errors if there was a problem.</returns>
-		public DrupalCommentCid CommentCreate(XmlRpcStruct comment)
+		public DrupalCommentCid CommentCreate(object comment)
 		{
 			this.InitRequest();
 			DrupalCommentCid res = default(DrupalCommentCid);
+			object param = comment is IDictionary ? ConvertAs((IDictionary)comment) : comment;
 			try {
-				res = drupalServiceSystem.CommentCreate(comment);
+				res = drupalServiceSystem.CommentCreate(param);
 			} catch (Exception ex) {
 				this.HandleException(ex, "CommentCreate");
 			}
 			return res;
 		}
 
-		public void CommentCreateAsync(XmlRpcStruct comment, object asyncState)
+		public void CommentCreateAsync(object comment, object asyncState)
 		{
 			if (this.CommentCreateOperationCompleted == null) {
 				this.CommentCreateOperationCompleted = new AsyncCallback(this.OnCommentCreateCompleted);
 			}
-			drupalServiceSystem.BeginCommentCreate(comment, this.CommentCreateOperationCompleted, asyncState);
+			object param = comment is IDictionary ? ConvertAs((IDictionary)comment) : comment;
+			drupalServiceSystem.BeginCommentCreate(param, this.CommentCreateOperationCompleted, asyncState);
 		}
 
 		void OnCommentCreateCompleted(IAsyncResult asyncResult)
