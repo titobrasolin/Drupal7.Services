@@ -55,24 +55,24 @@ namespace Drupal7.Services
 			}
 		}
 
-		public XmlRpcStruct NodeCreate(XmlRpcStruct node)
+		public XmlRpcStruct NodeCreate(object node)
 		{
 			this.InitRequest();
 			XmlRpcStruct res = null;
 			try {
-				res = drupalServiceSystem.NodeCreate(node);
+				res = drupalServiceSystem.NodeCreate(ConvertAs(node));
 			} catch (Exception ex) {
 				this.HandleException(ex, "NodeCreate");
 			}
 			return res;
 		}
 
-		public void NodeCreateAsync(XmlRpcStruct node, object asyncState)
+		public void NodeCreateAsync(object node, object asyncState)
 		{
 			if (this.NodeCreateOperationCompleted == null) {
 				this.NodeCreateOperationCompleted = new AsyncCallback(this.OnNodeCreateCompleted);
 			}
-			drupalServiceSystem.BeginNodeCreate(node, this.NodeCreateOperationCompleted, asyncState);
+			drupalServiceSystem.BeginNodeCreate(ConvertAs(node), this.NodeCreateOperationCompleted, asyncState);
 		}
 
 		void OnNodeCreateCompleted(IAsyncResult asyncResult)
@@ -89,24 +89,24 @@ namespace Drupal7.Services
 			}
 		}
 
-		public XmlRpcStruct NodeUpdate(int nid, XmlRpcStruct node)
+		public XmlRpcStruct NodeUpdate(int nid, object node)
 		{
 			this.InitRequest();
 			XmlRpcStruct res = null;
 			try {
-				res = drupalServiceSystem.NodeUpdate(nid, node);
+				res = drupalServiceSystem.NodeUpdate(nid, ConvertAs(node));
 			} catch (Exception ex) {
 				this.HandleException(ex, "NodeUpdate");
 			}
 			return res;
 		}
 
-		public void NodeUpdateAsync(int nid, XmlRpcStruct node, object asyncState)
+		public void NodeUpdateAsync(int nid, object node, object asyncState)
 		{
 			if (this.NodeUpdateOperationCompleted == null) {
 				this.NodeUpdateOperationCompleted = new AsyncCallback(this.OnNodeUpdateCompleted);
 			}
-			drupalServiceSystem.BeginNodeUpdate(nid, node, this.NodeUpdateOperationCompleted, asyncState);
+			drupalServiceSystem.BeginNodeUpdate(nid, ConvertAs(node), this.NodeUpdateOperationCompleted, asyncState);
 		}
 
 		void OnNodeUpdateCompleted(IAsyncResult asyncResult)

@@ -71,10 +71,10 @@ namespace Drupal7.Services
 		object EndCommentRetrieve(IAsyncResult asyncResult);
 
 		[XmlRpcMethod("comment.update")]
-		object CommentUpdate(int cid, XmlRpcStruct comment);
+		object CommentUpdate(int cid, object comment);
 
 		[XmlRpcBegin("comment.update")]
-		IAsyncResult BeginCommentUpdate(int cid, XmlRpcStruct comment, AsyncCallback callback, object asyncState);
+		IAsyncResult BeginCommentUpdate(int cid, object comment, AsyncCallback callback, object asyncState);
 
 		[XmlRpcEnd("comment.update")]
 		object EndCommentUpdate(IAsyncResult asyncResult);
@@ -209,19 +209,19 @@ namespace Drupal7.Services
 		XmlRpcStruct EndNodeRetrieve(IAsyncResult asyncResult);
 		
 		[XmlRpcMethod("node.create")]
-		XmlRpcStruct NodeCreate(XmlRpcStruct node);
+		XmlRpcStruct NodeCreate(object node);
 
 		[XmlRpcBegin("node.create")]
-		IAsyncResult BeginNodeCreate(XmlRpcStruct node, AsyncCallback callback, object asyncState);
+		IAsyncResult BeginNodeCreate(object node, AsyncCallback callback, object asyncState);
 
 		[XmlRpcEnd("node.create")]
 		XmlRpcStruct EndNodeCreate(IAsyncResult asyncResult);
 
 		[XmlRpcMethod("node.update")]
-		XmlRpcStruct NodeUpdate(int nid, XmlRpcStruct node);
+		XmlRpcStruct NodeUpdate(int nid, object node);
 
 		[XmlRpcBegin("node.update")]
-		IAsyncResult BeginNodeUpdate(int nid, XmlRpcStruct node, AsyncCallback callback, object asyncState);
+		IAsyncResult BeginNodeUpdate(int nid, object node, AsyncCallback callback, object asyncState);
 
 		[XmlRpcEnd("node.update")]
 		XmlRpcStruct EndNodeUpdate(IAsyncResult asyncResult);

@@ -286,24 +286,24 @@ namespace Drupal7.Services
 			}
 		}
 
-		public object CommentUpdate(int cid, XmlRpcStruct comment)
+		public object CommentUpdate(int cid, object comment)
 		{
 			this.InitRequest();
 			object res = null;
 			try {
-				res = drupalServiceSystem.CommentUpdate(cid, comment);
+				res = drupalServiceSystem.CommentUpdate(cid, ConvertAs(comment));
 			} catch (Exception ex) {
 				this.HandleException(ex, "CommentUpdate");
 			}
 			return res;
 		}
 
-		public void CommentUpdateAsync(int cid, XmlRpcStruct comment, object asyncState)
+		public void CommentUpdateAsync(int cid, object comment, object asyncState)
 		{
 			if (this.CommentUpdateOperationCompleted == null) {
 				this.CommentUpdateOperationCompleted = new AsyncCallback(this.OnCommentUpdateCompleted);
 			}
-			drupalServiceSystem.BeginCommentUpdate(cid, comment, this.CommentUpdateOperationCompleted, asyncState);
+			drupalServiceSystem.BeginCommentUpdate(cid, ConvertAs(comment), this.CommentUpdateOperationCompleted, asyncState);
 		}
 
 		void OnCommentUpdateCompleted(IAsyncResult asyncResult)
