@@ -124,11 +124,29 @@ namespace Drupal7.Services
 		[XmlRpcMethod("contact.index")]
 		DrupalContact[] ContactIndex();
 
+		[XmlRpcBegin("contact.index")]
+		IAsyncResult BeginContactIndex(AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("contact.index")]
+		DrupalContact[] EndContactIndex(IAsyncResult asyncResult);
+
 		[XmlRpcMethod("contact.site")]
 		bool ContactSite(string name, string mail, string subject, int cid, string message, bool copy);
 
+		[XmlRpcBegin("contact.site")]
+		IAsyncResult BeginContactSite(string name, string mail, string subject, int cid, string message, bool copy, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("contact.site")]
+		bool EndContactSite(IAsyncResult asyncResult);
+
 		[XmlRpcMethod("contact.personal")]
 		bool ContactPersonal(string name, string mail, string to, string subject, string message, bool copy);
+
+		[XmlRpcBegin("contact.personal")]
+		IAsyncResult BeginContactPersonal(string name, string mail, string to, string subject, string message, bool copy, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("contact.personal")]
+		bool EndContactPersonal(IAsyncResult asyncResult);
 
 		#endregion
 
