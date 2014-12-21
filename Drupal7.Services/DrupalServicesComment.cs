@@ -172,17 +172,23 @@ namespace Drupal7.Services
 		public event DrupalAsyncCompletedEventHandler<int> CommentCountAllCompleted;
 		public event DrupalAsyncCompletedEventHandler<int> CommentCountNewCompleted;
 
-		XmlRpcStruct NewComment(int nid, string comment_body)
-		{
-			XmlRpcStruct comment;
 
-			comment = new XmlRpcStruct();
+		public static IDictionary NewComment(int nid, string comment_body, string subject) {
+			return NewComment(nid, comment_body, subject, "und");
+		}
+
+		static IDictionary NewComment(int nid, string comment_body, string subject, string language)
+		{
+			IDictionary comment;
+
+			comment = new Hashtable();
 			comment["nid"] = nid;
-			comment["comment_body"] = new XmlRpcStruct() { {
-					"und",
-					new XmlRpcStruct() { {
+			comment["subject"] = subject;
+			comment["comment_body"] = new Hashtable() { {
+					language,
+					new Hashtable() { {
 							"0",
-							new XmlRpcStruct() { {
+							new Hashtable() { {
 									"value",
 									comment_body
 								}
@@ -191,47 +197,8 @@ namespace Drupal7.Services
 					}
 				}
 			};
+			comment["language"] = language;
 			return comment;
-		}
-
-		public int CommentCreate(int nid, string comment_body)
-		{
-			return this._CommentCreate(NewComment(nid, comment_body));
-		}
-
-		public int CommentCreate(int nid, string comment_body, string subject)
-		{
-			XmlRpcStruct comment = NewComment(nid, comment_body);
-
-			comment["subject"] = subject;
-
-			return _CommentCreate(comment);
-		}
-
-		public int CommentCreate(int nid, int pid, string comment_body)
-		{
-			XmlRpcStruct comment = NewComment(nid, comment_body);
-
-			comment["pid"] = pid;
-
-			return _CommentCreate(comment);
-		}
-
-		public int CommentCreate(int nid, int pid, string comment_body, string subject)
-		{
-			XmlRpcStruct comment = NewComment(nid, comment_body);
-
-			comment["pid"] = pid;
-			comment["subject"] = subject;
-
-			return _CommentCreate(comment);
-		}
-
-		int _CommentCreate(XmlRpcStruct comment)
-		{
-			int cid = 0;
-			int.TryParse(this.CommentCreate(comment).cid, out cid);
-			return cid;
 		}
 
 		/// <summary>
@@ -243,9 +210,8 @@ namespace Drupal7.Services
 		{
 			this.InitRequest();
 			DrupalCommentCid res = default(DrupalCommentCid);
-			object param = comment is IDictionary ? ConvertAs((IDictionary)comment) : comment;
 			try {
-				res = drupalServiceSystem.CommentCreate(param);
+				res = drupalServiceSystem.CommentCreate(ConvertAs(comment));
 			} catch (Exception ex) {
 				this.HandleException(ex, "CommentCreate");
 			}
@@ -257,8 +223,7 @@ namespace Drupal7.Services
 			if (this.CommentCreateOperationCompleted == null) {
 				this.CommentCreateOperationCompleted = new AsyncCallback(this.OnCommentCreateCompleted);
 			}
-			object param = comment is IDictionary ? ConvertAs((IDictionary)comment) : comment;
-			drupalServiceSystem.BeginCommentCreate(param, this.CommentCreateOperationCompleted, asyncState);
+			drupalServiceSystem.BeginCommentCreate(ConvertAs(comment), this.CommentCreateOperationCompleted, asyncState);
 		}
 
 		void OnCommentCreateCompleted(IAsyncResult asyncResult)

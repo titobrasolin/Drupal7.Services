@@ -70,16 +70,17 @@ namespace Drupal7.Services
 
 		private void HandleException(Exception ex, string functionName)
 		{
-			if (ex is XmlRpcFaultException) {
-				_errorCode = (ex as XmlRpcFaultException).FaultCode;
-				_errorMessage = (ex as XmlRpcFaultException).Message;
+			var xmlRpcFaultException = ex as XmlRpcFaultException;
+			if (xmlRpcFaultException != null) {
+				_errorCode = xmlRpcFaultException.FaultCode;
+				_errorMessage = xmlRpcFaultException.Message;
 			} else {
 				_errorCode = 0;
 				_errorMessage = ex.Message;
 			}
 			this.OnHandledException(ex, functionName);
 		}
-		
+
 		private void InitRequest()
 		{
 			_errorCode = 0;
@@ -127,26 +128,20 @@ namespace Drupal7.Services
 		/// </summary>
 		/// <param name="value">IDictionary value.</param>
 		/// <returns>The XmlRpcStruct value.</returns>
-		XmlRpcStruct ConvertAs (IDictionary value)
+		object ConvertAs (object value)
 		{
-			XmlRpcStruct new_value;
-			new_value = new XmlRpcStruct();
-			foreach (string key in value.Keys) {
-				object res;
-				if (value[key] == null) {
-					res = "";
-				}
-				// disable once ConvertIfStatementToConditionalTernaryExpression
-				else {
-					if ((value[key] as IDictionary) != null) {
-						res = ConvertAs(value[key] as IDictionary);
-					} else {
-						res = value[key];
-					}
-				}
-				new_value.Add(key, res);
+			IDictionary old;
+			XmlRpcStruct @new;
+
+			old = value as IDictionary;
+			if (old == null) {
+				return value;
 			}
-			return new_value;
+			@new = new XmlRpcStruct();
+			foreach (string key in old.Keys) {
+				@new.Add(key, old[key] == null ? "" : ConvertAs(old[key]));
+			}
+			return @new;
 		}
 	}
 }
