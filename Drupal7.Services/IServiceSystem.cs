@@ -4,51 +4,8 @@ namespace Drupal7.Services
 {
 	public interface IServiceSystem : IXmlRpcProxy
 	{
-		#region Flag
-
-		[XmlRpcMethod("flag.is_flagged")]
-		bool FlagIsFlagged(string flag_name, int content_id, int uid);
-
-		[XmlRpcBegin("flag.is_flagged")]
-		IAsyncResult BeginFlagIsFlagged(string flag_name, int content_id, int uid, AsyncCallback callback, object asyncState);
-
-		[XmlRpcMethod("flag.is_flagged")]
-		bool FlagIsFlagged(string flag_name, int content_id);
-
-		[XmlRpcBegin("flag.is_flagged")]
-		IAsyncResult BeginFlagIsFlagged(string flag_name, int content_id, AsyncCallback callback, object asyncState);
-
-		[XmlRpcEnd("flag.is_flagged")]
-		bool EndFlagIsFlagged(IAsyncResult asyncResult);
-		
-		[XmlRpcMethod("flag.flag")]
-		bool FlagFlag(string flag_name, int content_id, string action, int uid, bool skip_permission_check);
-
-		[XmlRpcBegin("flag.flag")]
-		IAsyncResult BeginFlagFlag(string flag_name, int content_id, string action, int uid, bool skip_permission_check, AsyncCallback callback, object asyncState);
-
-		[XmlRpcMethod("flag.flag")]
-		bool FlagFlag(string flag_name, int content_id, string action, bool skip_permission_check);
-
-		[XmlRpcBegin("flag.flag")]
-		IAsyncResult BeginFlagFlag(string flag_name, int content_id, string action, bool skip_permission_check, AsyncCallback callback, object asyncState);
-
-		[XmlRpcEnd("flag.flag")]
-		bool EndFlagFlag(IAsyncResult asyncResult);
-
-		[XmlRpcMethod("flag.countall")]
-		XmlRpcStruct FlagCountAll(string flag_name, int content_id);
-
-		[XmlRpcBegin("flag.countall")]
-		XmlRpcStruct BeginFlagCountAll(string flag_name, int content_id, AsyncCallback callback, object asyncState);
-
-		[XmlRpcEnd("flag.countall")]
-		XmlRpcStruct EndFlagCountAll(IAsyncResult asyncResult);
-
-		#endregion
-
 		#region Comment
-		
+
 		[XmlRpcMethod("comment.create")]
 		DrupalCommentCid CommentCreate(object comment);
 
@@ -60,7 +17,7 @@ namespace Drupal7.Services
 
 		[XmlRpcMethod("comment.retrieve")]
 		object CommentRetrieve(int cid);
-		
+
 		[XmlRpcMethod("comment.retrieve")]
 		DrupalComment CommentRetrieve2(int cid);
 
@@ -117,8 +74,6 @@ namespace Drupal7.Services
 
 		#endregion
 
-		#region File
-
 		#region Contact
 
 		[XmlRpcMethod("contact.index")]
@@ -149,6 +104,73 @@ namespace Drupal7.Services
 		bool EndContactPersonal(IAsyncResult asyncResult);
 
 		#endregion
+
+		#region Definition
+
+		[XmlRpcMethod("definition.index")]
+		XmlRpcStruct DefinitionIndex();
+
+		[XmlRpcBegin("definition.index")]
+		IAsyncResult BeginDefinitionIndex(AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("definition.index")]
+		XmlRpcStruct EndDefinitionIndex(IAsyncResult asyncResult);
+
+		#endregion
+
+		#region EntityComment
+
+		[XmlRpcMethod("entity_comment.create")]
+		object EntityCommentCreate(string method, string entity_type, object values);
+
+		[XmlRpcMethod("entity_comment.retrieve")]
+		XmlRpcStruct EntityCommentRetrieve(string method, string entity_type, int comment_id, string fields = "*");
+
+		[XmlRpcMethod("entity_comment.retrieve")]
+		XmlRpcStruct EntityCommentRetrieve(string method, string entity_type, int comment_id, string fields, int revision);
+
+		[XmlRpcMethod("entity_comment.update")]
+		object EntityCommentUpdate(string method, string entity_type, int comment_id, object values);
+
+		[XmlRpcMethod("entity_comment.delete")]
+		void EntityCommentDelete(string method, string entity_type, int comment_id);
+
+		[XmlRpcMethod("entity_comment.index")]
+		XmlRpcStruct[] EntityCommentIndex(string method = "index", string entity_type = "comment", string fields = "*", object parameters = null, int page = 0, int pagesize = 20, string sort = "", string direction = "ASC");
+
+		[XmlRpcMethod("entity_comment.countAll")]
+		string EntityCommentCountAll(int nid);
+
+		[XmlRpcMethod("entity_comment.countNew")]
+		string EntityCommentCountNew(int nid, int since = 0);
+
+		#endregion
+
+		#region EntityFile
+		// TODO: EntityFile
+		#endregion
+
+		#region EntityNode
+		// TODO: EntityNode
+		#endregion
+
+		#region EntityPrivateMsgMessage
+		// TODO: EntityPrivateMsgMessage
+		#endregion
+
+		#region EntityTaxonomyTerm
+		// TODO: EntityTaxonomyTerm
+		#endregion
+
+		#region EntityTaxonomyVocabulary
+		// TODO: EntityTaxonomyVocabulary
+		#endregion
+
+		#region EntityUser
+		// TODO: EntityUser
+		#endregion
+
+		#region File
 
 		[XmlRpcMethod("file.create")]
 		DrupalFile FileCreate(DrupalFile file);
@@ -195,6 +217,84 @@ namespace Drupal7.Services
 		[XmlRpcEnd("file.create_raw")]
 		DrupalFile[] EndFileCreateRaw(IAsyncResult asyncResult);
 	
+		#endregion
+
+		#region Flag
+
+		[XmlRpcMethod("flag.is_flagged")]
+		bool FlagIsFlagged(string flag_name, int content_id, int uid);
+
+		[XmlRpcBegin("flag.is_flagged")]
+		IAsyncResult BeginFlagIsFlagged(string flag_name, int content_id, int uid, AsyncCallback callback, object asyncState);
+
+		[XmlRpcMethod("flag.is_flagged")]
+		bool FlagIsFlagged(string flag_name, int content_id);
+
+		[XmlRpcBegin("flag.is_flagged")]
+		IAsyncResult BeginFlagIsFlagged(string flag_name, int content_id, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("flag.is_flagged")]
+		bool EndFlagIsFlagged(IAsyncResult asyncResult);
+
+		[XmlRpcMethod("flag.flag")]
+		bool FlagFlag(string flag_name, int content_id, string action, int uid, bool skip_permission_check);
+
+		[XmlRpcBegin("flag.flag")]
+		IAsyncResult BeginFlagFlag(string flag_name, int content_id, string action, int uid, bool skip_permission_check, AsyncCallback callback, object asyncState);
+
+		[XmlRpcMethod("flag.flag")]
+		bool FlagFlag(string flag_name, int content_id, string action, bool skip_permission_check);
+
+		[XmlRpcBegin("flag.flag")]
+		IAsyncResult BeginFlagFlag(string flag_name, int content_id, string action, bool skip_permission_check, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("flag.flag")]
+		bool EndFlagFlag(IAsyncResult asyncResult);
+
+		[XmlRpcMethod("flag.countall")]
+		XmlRpcStruct FlagCountAll(string flag_name, int content_id);
+
+		[XmlRpcBegin("flag.countall")]
+		XmlRpcStruct BeginFlagCountAll(string flag_name, int content_id, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("flag.countall")]
+		XmlRpcStruct EndFlagCountAll(IAsyncResult asyncResult);
+
+		#endregion
+
+		#region Geocoder
+
+		[XmlRpcMethod("geocoder.retrieve")]
+		string GeocoderRetrieve(string handler, string data, string output);
+
+		[XmlRpcBegin("geocoder.retrieve")]
+		IAsyncResult BeginGeocoderRetrieve(string handler, string data, string output, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("geocoder.retrieve")]
+		string EndGeocoderRetrieve(IAsyncResult asyncResult);
+
+		[XmlRpcMethod("geocoder.index")]
+		XmlRpcStruct GeocoderIndex();
+
+		[XmlRpcBegin("geocoder.index")]
+		IAsyncResult BeginGeocoderIndex(AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("geocoder.index")]
+		XmlRpcStruct EndGeocoderIndex(IAsyncResult asyncResult);
+
+		#endregion
+
+		#region Menu
+
+		[XmlRpcMethod("menu.retrieve")]
+		object MenuRetrieve(string menu_name);
+
+		[XmlRpcBegin("menu.retrieve")]
+		IAsyncResult BeginMenuRetrieve(string menu_name, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("menu.retrieve")]
+		object EndMenuRetrieve(IAsyncResult asyncResult);
+
 		#endregion
 
 		#region Node
@@ -252,6 +352,32 @@ namespace Drupal7.Services
 
 		[XmlRpcEnd("node.files")]
 		DrupalFile[] EndNodeFiles(IAsyncResult asyncResult);
+
+		#endregion
+
+		#region SearchNode
+
+		[XmlRpcMethod("search_node.retrieve")]
+		XmlRpcStruct[] SearchNodeRetrieve(object op, string keys, bool simple, string[] fields);
+
+		[XmlRpcBegin("search_node.retrieve")]
+		IAsyncResult BeginSearchNodeRetrieve(object op, string keys, bool simple, string[] fields, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("search_node.retrieve")]
+		XmlRpcStruct[] EndSearchNodeRetrieve(IAsyncResult asyncResult);
+
+		#endregion
+
+		#region SearchUser
+
+		[XmlRpcMethod("search_user.retrieve")]
+		DrupalUserSearchResult[] SearchUserRetrieve(object op, string keys);
+
+		[XmlRpcBegin("search_user.retrieve")]
+		IAsyncResult BeginSearchUserRetrieve(object op, string keys, AsyncCallback callback, object asyncState);
+
+		[XmlRpcEnd("search_user.retrieve")]
+		DrupalUserSearchResult[] EndSearchUserRetrieve(IAsyncResult asyncResult);
 
 		#endregion
 
@@ -410,7 +536,7 @@ namespace Drupal7.Services
 		XmlRpcStruct[] EndTaxonomyVocabularyGetTree(IAsyncResult asyncResult);
 
 		#endregion
-		
+
 		#region User
 
 		[XmlRpcMethod("user.retrieve")]
@@ -496,19 +622,6 @@ namespace Drupal7.Services
 
 		#endregion
 
-		#region Menu
-		
-		[XmlRpcMethod("menu.retrieve")]
-		object MenuRetrieve(string menu_name);
-		
-		[XmlRpcBegin("menu.retrieve")]
-		IAsyncResult BeginMenuRetrieve(string menu_name, AsyncCallback callback, object asyncState);
-		
-		[XmlRpcEnd("menu.retrieve")]
-		object EndMenuRetrieve(IAsyncResult asyncResult);
-		
-		#endregion
-
 		#region Views
 
 		[XmlRpcMethod("views.retrieve")]
@@ -519,67 +632,6 @@ namespace Drupal7.Services
 
 		[XmlRpcEnd("views.retrieve")]
 		XmlRpcStruct EndViewsRetrieve(IAsyncResult asyncResult);
-
-		#endregion
-
-		#region Definition
-		
-		[XmlRpcMethod("definition.index")]
-		XmlRpcStruct DefinitionIndex();
-
-		[XmlRpcBegin("definition.index")]
-		IAsyncResult BeginDefinitionIndex(AsyncCallback callback, object asyncState);
-
-		[XmlRpcEnd("definition.index")]
-		XmlRpcStruct EndDefinitionIndex(IAsyncResult asyncResult);
-
-		#endregion
-
-		#region Geocoder
-
-		[XmlRpcMethod("geocoder.retrieve")]
-		string GeocoderRetrieve(string handler, string data, string output);
-
-		[XmlRpcBegin("geocoder.retrieve")]
-		IAsyncResult BeginGeocoderRetrieve(string handler, string data, string output, AsyncCallback callback, object asyncState);
-		
-		[XmlRpcEnd("geocoder.retrieve")]
-		string EndGeocoderRetrieve(IAsyncResult asyncResult);
-
-		[XmlRpcMethod("geocoder.index")]
-		XmlRpcStruct GeocoderIndex();
-
-		[XmlRpcBegin("geocoder.index")]
-		IAsyncResult BeginGeocoderIndex(AsyncCallback callback, object asyncState);
-
-		[XmlRpcEnd("geocoder.index")]
-		XmlRpcStruct EndGeocoderIndex(IAsyncResult asyncResult);
-
-		#endregion
-		
-		#region SearchNode
-
-		[XmlRpcMethod("search_node.retrieve")]
-		XmlRpcStruct[] SearchNodeRetrieve(object op, string keys, bool simple, string[] fields);
-
-		[XmlRpcBegin("search_node.retrieve")]
-		IAsyncResult BeginSearchNodeRetrieve(object op, string keys, bool simple, string[] fields, AsyncCallback callback, object asyncState);
-		
-		[XmlRpcEnd("search_node.retrieve")]
-		XmlRpcStruct[] EndSearchNodeRetrieve(IAsyncResult asyncResult);
-
-		#endregion
-		
-		#region SearchUser
-
-		[XmlRpcMethod("search_user.retrieve")]
-		DrupalUserSearchResult[] SearchUserRetrieve(object op, string keys);
-
-		[XmlRpcBegin("search_user.retrieve")]
-		IAsyncResult BeginSearchUserRetrieve(object op, string keys, AsyncCallback callback, object asyncState);
-		
-		[XmlRpcEnd("search_user.retrieve")]
-		DrupalUserSearchResult[] EndSearchUserRetrieve(IAsyncResult asyncResult);
 
 		#endregion
 	}
