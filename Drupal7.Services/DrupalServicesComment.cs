@@ -354,24 +354,24 @@ namespace Drupal7.Services
 			}
 		}
 
-		public XmlRpcStruct[] CommentIndex(int page, string fields, XmlRpcStruct parameters, int page_size)
+		public XmlRpcStruct[] CommentIndex(int page, string fields, IDictionary parameters, int page_size)
 		{
 			this.InitRequest();
 			XmlRpcStruct[] res = null;
 			try {
-				res = drupalServiceSystem.CommentIndex(page, fields, parameters, page_size);
+				res = drupalServiceSystem.CommentIndex(page, fields, ConvertAs(parameters ?? new Hashtable()), page_size);
 			} catch (Exception ex) {
 				this.HandleException(ex, "CommentIndex");
 			}
 			return res;
 		}
 
-		public void CommentIndexAsync(int page, string fields, XmlRpcStruct parameters, int page_size, object asyncState)
+		public void CommentIndexAsync(int page, string fields, IDictionary parameters, int page_size, object asyncState)
 		{
 			if (this.CommentIndexOperationCompleted == null) {
 				this.CommentIndexOperationCompleted = new AsyncCallback(this.OnCommentIndexCompleted);
 			}
-			drupalServiceSystem.BeginCommentIndex(page, fields, parameters, page_size, this.CommentIndexOperationCompleted, asyncState);
+			drupalServiceSystem.BeginCommentIndex(page, fields, ConvertAs(parameters ?? new Hashtable()), page_size, this.CommentIndexOperationCompleted, asyncState);
 		}
 
 		void OnCommentIndexCompleted(IAsyncResult asyncResult)

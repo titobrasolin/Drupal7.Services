@@ -46,10 +46,10 @@ namespace Drupal7.Services
 		bool EndCommentDelete(IAsyncResult asyncResult);
 
 		[XmlRpcMethod("comment.index")]
-		XmlRpcStruct[] CommentIndex(int page, string fields, XmlRpcStruct parameters, int page_size);
+		XmlRpcStruct[] CommentIndex(int page, string fields, object parameters, int page_size);
 
 		[XmlRpcBegin("comment.index")]
-		IAsyncResult BeginCommentIndex(int page, string fields, XmlRpcStruct parameters, int page_size, AsyncCallback callback, object asyncState);
+		IAsyncResult BeginCommentIndex(int page, string fields, object parameters, int page_size, AsyncCallback callback, object asyncState);
 
 		[XmlRpcEnd("comment.index")]
 		XmlRpcStruct[] EndCommentIndex(IAsyncResult asyncResult);
@@ -147,7 +147,28 @@ namespace Drupal7.Services
 		#endregion
 
 		#region EntityFile
-		// TODO: EntityFile
+
+		[XmlRpcMethod("entity_file.retrieve")]
+		XmlRpcStruct EntityFileRetrieve(string method, string entity_type, int file_id, string fields = "*");
+
+		[XmlRpcMethod("entity_file.retrieve")]
+		XmlRpcStruct EntityFileRetrieve(string method, string entity_type, int file_id, string fields, int revision);
+
+		[XmlRpcMethod("entity_file.update")]
+		object EntityFileUpdate(string method, string entity_type, int file_id, object values);
+
+		[XmlRpcMethod("entity_file.delete")]
+		void EntityFileDelete(string method, string entity_type, int file_id);
+
+		[XmlRpcMethod("entity_file.index")]
+		XmlRpcStruct[] EntityFileIndex(string method = "index", string entity_type = "file", string fields = "*", object parameters = null, int page = 0, int pagesize = 20, string sort = "", string direction = "ASC");
+
+		[XmlRpcMethod("entity_file.create")]
+		object EntityFileCreate(string method, string entity_type, object values);
+
+		[XmlRpcMethod("entity_file.create_raw")]
+		object EntityFileCreateRaw();
+
 		#endregion
 
 		#region EntityNode

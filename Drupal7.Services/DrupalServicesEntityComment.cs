@@ -9,7 +9,6 @@ namespace Drupal7.Services
 	/// </summary>
 	public sealed partial class DrupalServices
 	{
-
 		/// <summary>
 		/// Creates an entity of type Comment.
 		/// </summary>
@@ -63,7 +62,7 @@ namespace Drupal7.Services
 		/// Retrieves an entity of type Comment.
 		/// </summary>
 		/// <param name="comment_id">The comment id.</param>
-		/// <param name="fields"> A comma separated list of fields to get.</param>
+		/// <param name="fields">A comma separated list of fields to get.</param>
 		/// <returns>An entity of type Comment.</returns>
 		public XmlRpcStruct EntityCommentRetrieve(int comment_id, string fields = "*")
 		{
@@ -92,7 +91,7 @@ namespace Drupal7.Services
 		/// Retrieves an entity of type Comment.
 		/// </summary>
 		/// <param name="comment_id">The comment id.</param>
-		/// <param name="fields"> A comma separated list of fields to get.</param>
+		/// <param name="fields">A comma separated list of fields to get.</param>
 		/// <param name="revision">The specific revision to retrieve.</param>
 		/// <returns>An entity of type Comment.</returns>
 		public XmlRpcStruct EntityCommentRetrieve(int comment_id, string fields, int revision)
@@ -111,7 +110,7 @@ namespace Drupal7.Services
 		/// Retrieves a list of entities of type Comment.
 		/// </summary>
 		/// <param name="fields">A comma separated list of fields to get.</param>
-		/// <param name="parameters">Filter parameters array such as parameters[title]="test"</param>
+		/// <param name="parameters">Filter parameters array such as parameters[title]="test".</param>
 		/// <param name="page">The zero-based index of the page to get, defaults to 0.</param>
 		/// <param name="pagesize">Number of records to get per page.</param>
 		/// <param name="sort">Field to sort by.</param>
