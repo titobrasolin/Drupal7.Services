@@ -35,6 +35,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrupalServicesAddressField.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrupalServicesComment.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
@@ -48,6 +51,9 @@
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
     <Compile Include="DrupalServicesEntityFile.cs">
+      <DependentUpon>DrupalServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrupalServicesEntityNode.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
     <Compile Include="DrupalServicesFile.cs">
