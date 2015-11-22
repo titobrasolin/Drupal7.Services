@@ -4,6 +4,22 @@ namespace Drupal7.Services
 {
 	public interface IServiceSystem : IXmlRpcProxy
 	{
+		#region AddressField
+
+		[XmlRpcMethod("services_addressfield.country_get_list")]
+		XmlRpcStruct AddressFieldCountryGetList();
+
+		[XmlRpcMethod("services_addressfield.get_address_format")]		
+		XmlRpcStruct AddressFieldGetAddressFormat(string country_code);
+
+		[XmlRpcMethod("services_addressfield.get_administrative_areas")]
+		XmlRpcStruct AddressFieldGetAdministrativeAreas(string country_code);
+
+		[XmlRpcMethod("services_addressfield.get_address_format_and_administrative_areas")]
+		XmlRpcStruct AddressFieldGetAddressFormatAndAdministrativeAreas(string country_code);
+
+		#endregion
+
 		#region Comment
 
 		[XmlRpcMethod("comment.create")]
@@ -172,7 +188,10 @@ namespace Drupal7.Services
 		#endregion
 
 		#region EntityNode
-		// TODO: EntityNode
+		// TODO: Finish EntityNode.
+		[XmlRpcMethod("entity_node.index")]
+		XmlRpcStruct[] EntityNodeIndex(string method = "index", string entity_type = "node", string fields = "*", object parameters = null, int page = 0, int pagesize = 20, string sort = "", string direction = "ASC");
+		
 		#endregion
 
 		#region EntityPrivateMsgMessage
@@ -490,18 +509,18 @@ namespace Drupal7.Services
 		XmlRpcStruct[] EndTaxonomyTermIndex(IAsyncResult asyncResult);
 
 		[XmlRpcMethod("taxonomy_term.selectNodes")]
-		XmlRpcStruct[] TaxonomyTermSelectNodes(int tid, bool pager, bool limit, XmlRpcStruct order);
-		
+		XmlRpcStruct[] TaxonomyTermSelectNodes(int tid, bool pager, int limit, object order);
+
 		[XmlRpcBegin("taxonomy_term.selectNodes")]
-		IAsyncResult BeginTaxonomyTermSelectNodes(int tid, bool pager, bool limit, XmlRpcStruct order, AsyncCallback callback, object asyncState);
-		
+		IAsyncResult BeginTaxonomyTermSelectNodes(int tid, bool pager, int limit, object order, AsyncCallback callback, object asyncState);
+
 		[XmlRpcEnd("taxonomy_term.selectNodes")]
 		XmlRpcStruct[] EndTaxonomyTermSelectNodes(IAsyncResult asyncResult);
-		
+
 		#endregion
 
 		#region TaxonomyVocabulary
-		
+
 		[XmlRpcMethod("taxonomy_vocabulary.retrieve")]
 		XmlRpcStruct TaxonomyVocabularyRetrieve(int vid);
 
@@ -513,10 +532,10 @@ namespace Drupal7.Services
 
 		[XmlRpcMethod("taxonomy_vocabulary.create")]
 		int TaxonomyVocabularyCreate(XmlRpcStruct vocabulary);
-		
+
 		[XmlRpcBegin("taxonomy_vocabulary.create")]
 		IAsyncResult BeginTaxonomyVocabularyCreate(XmlRpcStruct vocabulary, AsyncCallback callback, object asyncState);
-		
+
 		[XmlRpcEnd("taxonomy_vocabulary.create")]
 		int EndTaxonomyVocabularyCreate(IAsyncResult asyncResult);
 

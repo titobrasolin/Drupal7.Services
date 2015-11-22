@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using CookComputing.XmlRpc;
 namespace Drupal7.Services
 {
@@ -191,24 +192,47 @@ namespace Drupal7.Services
 			}
 		}
 
-		public XmlRpcStruct[] TaxonomyTermSelectNodes(int tid, bool pager, bool limit, XmlRpcStruct order)
+		/// <summary>
+		/// Return nodes attached to a term across all field instances.
+		/// </summary>
+		/// <param name="tid">The term ID.</param>
+		/// <param name="pager">Boolean to indicate whether a pager should be used. </param>
+		/// <param name="limit">Integer. The maximum number of nodes to find.</param>
+		/// <param name="order">An array of fields and directions.</param>
+		/// <returns>An array of node objects.</returns>
+		public XmlRpcStruct[] TaxonomyTermSelectNodes(int tid, bool pager, int limit, IDictionary order)
 		{
 			this.InitRequest();
 			XmlRpcStruct[] res = null;
 			try {
-				res = drupalServiceSystem.TaxonomyTermSelectNodes(tid, pager, limit, order);
+				res = drupalServiceSystem.TaxonomyTermSelectNodes(tid, pager, limit, ConvertAs(order ?? new Hashtable()));
 			} catch (Exception ex) {
 				this.HandleException(ex, "TaxonomyTermSelectNodes");
 			}
 			return res;
 		}
 
-		public void TaxonomyTermSelectNodesAsync(int tid, bool pager, bool limit, XmlRpcStruct order, object asyncState)
+		/// <summary>
+		/// Return nodes attached to a term across all field instances.
+		/// </summary>
+		/// <param name="tid">The term ID.</param>
+		/// <param name="pager">Boolean to indicate whether a pager should be used. </param>
+		/// <param name="limit">Integer. The maximum number of nodes to find.</param>
+		/// <returns>An array of node objects ordered by "t.sticky" DESC and "t.created" DESC.</returns>
+		public XmlRpcStruct[] TaxonomyTermSelectNodes(int tid, bool pager, int limit)
+		{
+			var order = new Hashtable();
+			order["t.sticky"] = "DESC";
+			order["t.created"] = "DESC";
+			return this.TaxonomyTermSelectNodes(tid, pager, limit, order);
+		}
+
+		public void TaxonomyTermSelectNodesAsync(int tid, bool pager, int limit, IDictionary order, object asyncState)
 		{
 			if (this.TaxonomyTermSelectNodesOperationCompleted == null) {
 				this.TaxonomyTermSelectNodesOperationCompleted = new AsyncCallback(this.OnTaxonomyTermSelectNodesCompleted);
 			}
-			drupalServiceSystem.BeginTaxonomyTermSelectNodes(tid, pager, limit, order, this.TaxonomyTermSelectNodesOperationCompleted, asyncState);
+			drupalServiceSystem.BeginTaxonomyTermSelectNodes(tid, pager, limit, ConvertAs(order ?? new Hashtable()), this.TaxonomyTermSelectNodesOperationCompleted, asyncState);
 		}
 
 		void OnTaxonomyTermSelectNodesCompleted(IAsyncResult asyncResult)
