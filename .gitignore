@@ -185,3 +185,4 @@ FakesAssemblies/
 *.userprefs
 Drupal7.Services/Drupal7.Services.CreateNewNuGetPackageFromProjectAfterEachBuild.sln
 /.vs
+/packages

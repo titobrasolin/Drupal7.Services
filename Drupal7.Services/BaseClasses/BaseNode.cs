@@ -1,6 +1,6 @@
 ﻿namespace Drupal7.Services.BaseClasses
 {
-    class BaseNode
+    public class BaseNode
     {
         private int _nid;
         private int _promote;
