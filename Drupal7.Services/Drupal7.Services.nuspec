@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>0.0.14-alpha</version>
+    <version>0.0.15-alpha</version>
     <authors>Tito Brasolin</authors>
     <owners>Tito Brasolin</owners>
     <id>Drupal7.Services</id>
@@ -12,7 +12,7 @@
     <licenseUrl>https://raw.githubusercontent.com/titobrasolin/Drupal7.Services/master/LICENSE</licenseUrl>
     <iconUrl>https://www.drupal.org/files/druplicon.small_.png</iconUrl>
     <tags>Drupal</tags>
-    <releaseNotes>New methods (e.g. EntityNodeIndex) and some fixes in TaxonomyTermSelectNodes.</releaseNotes>
+    <releaseNotes>New BaseNode class, plus an IDictionary extension method.</releaseNotes>
   </metadata>
   <files />
 </package>
