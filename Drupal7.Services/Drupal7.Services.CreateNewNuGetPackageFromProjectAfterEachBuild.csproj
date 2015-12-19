@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Drupal7.Services</RootNamespace>
     <AssemblyName>Drupal7.Services</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,8 +33,10 @@
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClasses\BaseNode.cs" />
     <Compile Include="DrupalServicesAddressField.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
@@ -92,6 +94,7 @@
     <Compile Include="DrupalServicesViews.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IServiceSystem.cs" />
     <Compile Include="DrupalServices.cs" />
