@@ -9,6 +9,8 @@
     <AssemblyName>Drupal7.Services</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,6 +101,8 @@
     <Compile Include="IServiceSystem.cs" />
     <Compile Include="DrupalServices.cs" />
     <Compile Include="DrupalAsyncCompletedEventArgs.cs" />
+    <Compile Include="BaseClasses\BaseTaxonomyTerm.cs" />
+    <Compile Include="BaseClasses\BaseTaxonomyVocabulary.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
