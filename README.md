@@ -15,15 +15,14 @@ Drupal7.Services (prerelease) is available in NuGet.
 Usage is simple: create a new instance of DrupalServices passing the url of your service endpoint to the constructor:
 ```C#
     using Drupal7.Services;
-    using CookComputing.XmlRpc;
 
-    string url = "http://www.strongmonkey.net/services/xmlrpc";
-    DrupalServices d = new Drupal7.Services.DrupalServices (url);
+    string url = "http://www.example.net/services/xmlrpc";
+    var drupal = new DrupalServices (url);
 ```
 Then call NodeIndex to retrieve an array of Drupal nodes:
 ```C#
     int page = 0;
     string fields = "*";
     int size = 20;
-    XmlRpcStruct[] n = d.NodeIndex (page, fields, size);
+    var items = drupal.NodeIndex (page, fields, size);
 ```
