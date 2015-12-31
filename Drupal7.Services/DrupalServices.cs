@@ -49,7 +49,12 @@ namespace Drupal7.Services
 
 		DrupalSessionObject _sessionData;
 
-		int _errorCode = 0;
+        public DrupalSessionObject SessionData
+        {
+            get { return _sessionData; }
+        }
+
+        int _errorCode = 0;
 
 		public int ErrorCode { 
 			get { return _errorCode; }
