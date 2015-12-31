@@ -1,4 +1,4 @@
-namespace Drupal7.Services
+namespace Drupal7.Services.BaseClasses
 {
     public class BaseTaxonomyVocabulary
     {
