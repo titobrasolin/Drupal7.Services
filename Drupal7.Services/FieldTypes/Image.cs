@@ -1,6 +1,10 @@
 ﻿namespace Drupal7.Services.FieldTypes
 {
-    class Image
+    public class ImageField
+    {
+        public ImageItem[] und { get; set; }
+    }
+    public class ImageItem
     {
         public string filename { get; set; }
         public string alt { get; set; }
