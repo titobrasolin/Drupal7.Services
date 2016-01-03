@@ -8,9 +8,9 @@ namespace Drupal7.Services.BaseClasses
         public string data { get; set; }
         public int picture { get; set; }
         public int last_comment_timestamp { get; set; }
-        // public ... field_tags { get; set; }
+        public TaxonomyTermReferenceField field_tags { get; set; }
         public string last_comment_name { get; set; }
-        // public ... log { get; set; }
+        public string log { get; set; }
         public int cid { get; set; }
         public int revision_uid { get; set; }
         public int comment_count { get; set; }
