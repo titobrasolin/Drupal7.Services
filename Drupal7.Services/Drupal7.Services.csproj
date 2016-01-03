@@ -38,7 +38,12 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClasses\BaseArticle.cs" />
+    <Compile Include="FieldTypes\Image.cs" />
+    <Compile Include="FieldTypes\TaxonomyTermReference.cs" />
+    <Compile Include="FieldTypes\Text.cs" />
     <Compile Include="BaseClasses\BaseNode.cs" />
+    <Compile Include="FieldTypes\TextWithSummary.cs" />
     <Compile Include="DrupalServicesAddressField.cs">
       <DependentUpon>DrupalServices.cs</DependentUpon>
     </Compile>
