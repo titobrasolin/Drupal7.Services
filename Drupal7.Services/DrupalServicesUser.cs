@@ -1,5 +1,8 @@
 ﻿using System;
 using CookComputing.XmlRpc;
+using System.Collections;
+
+
 namespace Drupal7.Services
 {
 	public struct DrupalUserToken
@@ -44,20 +47,20 @@ namespace Drupal7.Services
 		private AsyncCallback UserRegisterOperationCompleted;
 		private AsyncCallback UserTokenOperationCompleted;
 		
-		public event DrupalAsyncCompletedEventHandler<DrupalUser> UserRetrieveCompleted;
+		public event DrupalAsyncCompletedEventHandler<IDictionary> UserRetrieveCompleted;
 		public event DrupalAsyncCompletedEventHandler<DrupalUser> UserCreateCompleted;
 		public event DrupalAsyncCompletedEventHandler<DrupalUser> UserUpdateCompleted;
 		public event DrupalAsyncCompletedEventHandler<bool> UserDeleteCompleted;
-		public event DrupalAsyncCompletedEventHandler<DrupalUser[]> UserIndexCompleted;
+		public event DrupalAsyncCompletedEventHandler<IDictionary[]> UserIndexCompleted;
 		public event DrupalAsyncCompletedEventHandler<DrupalSessionObject> UserLoginCompleted;
 		public event DrupalAsyncCompletedEventHandler<bool> UserLogoutCompleted;
 		public event DrupalAsyncCompletedEventHandler<DrupalUser> UserRegisterCompleted;
 		public event DrupalAsyncCompletedEventHandler<DrupalUserToken> UserTokenCompleted;
 
-		public DrupalUser UserRetrieve(int uid)
+		public IDictionary UserRetrieve(int uid)
 		{
 			this.InitRequest();
-			DrupalUser res = default(DrupalUser);
+			var res = default(XmlRpcStruct);
 			try {
 				res = drupalServiceSystem.UserRetrieve(uid);
 			} catch (Exception ex) {
@@ -78,12 +81,12 @@ namespace Drupal7.Services
 		{
 			if (this.UserRetrieveCompleted != null) {
 				var clientResult = (XmlRpcAsyncResult)asyncResult;
-				DrupalUser result = default(DrupalUser);
+				var result = default(XmlRpcStruct);
 				try {
 					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserRetrieve(asyncResult);
-					this.UserRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, null, asyncResult.AsyncState));
+					this.UserRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<IDictionary>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser>(result, ex, asyncResult.AsyncState));
+					this.UserRetrieveCompleted(this, new DrupalAsyncCompletedEventArgs<IDictionary>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}
@@ -190,10 +193,16 @@ namespace Drupal7.Services
 			}
 		}
 
-		public DrupalUser[] UserIndex(int page, string fields, XmlRpcStruct parameters, int page_size)
+		public IDictionary[] UserIndex(int page, string fields, XmlRpcStruct parameters, int page_size)
 		{
 			this.InitRequest();
-			DrupalUser[] res = null;
+			if (string.IsNullOrEmpty(fields)) {
+				fields = "*";
+			}
+			if (parameters == null) {
+				parameters = new XmlRpcStruct();
+			}
+			var res = default(XmlRpcStruct[]);
 			try {
 				res = drupalServiceSystem.UserIndex(page, fields, parameters, page_size);
 			} catch (Exception ex) {
@@ -214,12 +223,12 @@ namespace Drupal7.Services
 		{
 			if (this.UserIndexCompleted != null) {
 				var clientResult = (XmlRpcAsyncResult)asyncResult;
-				DrupalUser[] result = null;
+				var result = default(XmlRpcStruct[]);
 				try {
 					result = ((IServiceSystem)clientResult.ClientProtocol).EndUserIndex(asyncResult);
-					this.UserIndexCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser[]>(result, null, asyncResult.AsyncState));
+					this.UserIndexCompleted(this, new DrupalAsyncCompletedEventArgs<IDictionary[]>(result, null, asyncResult.AsyncState));
 				} catch (Exception ex) {
-					this.UserIndexCompleted(this, new DrupalAsyncCompletedEventArgs<DrupalUser[]>(result, ex, asyncResult.AsyncState));
+					this.UserIndexCompleted(this, new DrupalAsyncCompletedEventArgs<IDictionary[]>(result, ex, asyncResult.AsyncState));
 				}
 			}
 		}

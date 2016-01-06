@@ -580,13 +580,13 @@ namespace Drupal7.Services
 		#region User
 
 		[XmlRpcMethod("user.retrieve")]
-		DrupalUser UserRetrieve(int uid);
+		XmlRpcStruct UserRetrieve(int uid);
 		
 		[XmlRpcBegin("user.retrieve")]
 		IAsyncResult BeginUserRetrieve(int uid, AsyncCallback callback, object asyncState);
 		
 		[XmlRpcEnd("user.retrieve")]
-		DrupalUser EndUserRetrieve(IAsyncResult asyncResult);
+		XmlRpcStruct EndUserRetrieve(IAsyncResult asyncResult);
 		
 		[XmlRpcMethod("user.create")]
 		DrupalUser UserCreate(XmlRpcStruct account);
@@ -616,13 +616,13 @@ namespace Drupal7.Services
 		bool EndUserDelete(IAsyncResult asyncResult);
 
 		[XmlRpcMethod("user.index")]
-		DrupalUser[] UserIndex(int page, string fields, XmlRpcStruct parameters, int page_size);
+        XmlRpcStruct[] UserIndex(int page, string fields, XmlRpcStruct parameters, int page_size);
 
 		[XmlRpcBegin("user.index")]
 		IAsyncResult BeginUserIndex(int page, string fields, XmlRpcStruct parameters, int page_size, AsyncCallback callback, object asyncState);
 
 		[XmlRpcEnd("user.index")]
-		DrupalUser[] EndUserIndex(IAsyncResult asyncResult);
+        XmlRpcStruct[] EndUserIndex(IAsyncResult asyncResult);
 
 		[XmlRpcMethod("user.login")]
 		DrupalSessionObject UserLogin(string username, string password);
