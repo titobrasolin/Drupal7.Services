@@ -1,5 +1,32 @@
 ﻿namespace Drupal7.Services.BaseClasses
 {
+    public class entity
+    {
+        public string target_id { get; set; }
+    }
+    public class boolean
+    {
+        public bool value { get; set; }
+    }
+    public class integer
+    {
+        public string value { get; set; }
+    }
+    public class date
+    {
+        public string value { get; set; }
+        public string timezone_db { get; set; }
+        public string date_type { get; set; }
+        public string timezone { get; set; }
+        public string value2 { get; set; }
+    }
+    public class text_long
+    {
+        public string value { get; set; }
+        public string format { get; set; }
+        public string safe_value { get; set; }
+    }
+    
     public class BaseNode
     {
         private int _nid;

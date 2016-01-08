@@ -12,6 +12,14 @@ Quickstart
 
 Drupal7.Services (prerelease) is available in NuGet.
 
+User Manual
+-----------
+
+[Click here to go to the Wiki.](https://github.com/titobrasolin/Drupal7.Services/wiki)
+It is far from complete, but it's a start. Updates happen every now and then but the goal is to have a complete documentation.
+
+
+
 Usage is simple: create a new instance of DrupalServices passing the url of your service endpoint to the constructor:
 ```C#
     using Drupal7.Services;
