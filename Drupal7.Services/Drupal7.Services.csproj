@@ -109,6 +109,7 @@
     <Compile Include="BaseClasses\BaseTaxonomyTerm.cs" />
     <Compile Include="BaseClasses\BaseTaxonomyVocabulary.cs" />
     <Compile Include="BaseClasses\BaseUser.cs" />
+    <Compile Include="FieldTypes\DateTime.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
