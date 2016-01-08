@@ -2,9 +2,9 @@
 {
     public class TextField
     {
-        public TextItem[] und { get; set; }
+        public TextFieldItem[] und { get; set; }
     }
-    public class TextItem
+    public class TextFieldItem
     {
         public string value { get; set; }
         public string format { get; set; }

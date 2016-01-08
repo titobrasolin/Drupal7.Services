@@ -2,9 +2,9 @@
 {
     public class TaxonomyTermReferenceField
     {
-        public TaxonomyTermReferenceItem[] und { get; set; }
+        public TaxonomyTermReferenceFieldItem[] und { get; set; }
     }
-    public class TaxonomyTermReferenceItem
+    public class TaxonomyTermReferenceFieldItem
     {
         public int tid { get; set; }
     }

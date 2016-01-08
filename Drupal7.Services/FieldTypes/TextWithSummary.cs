@@ -2,9 +2,9 @@
 {
     public class TextWithSummaryField
     {
-        public TextWithSummaryItem[] und { get; set; }
+        public TextWithSummaryFieldItem[] und { get; set; }
     }
-    public class TextWithSummaryItem : TextItem
+    public class TextWithSummaryFieldItem : TextFieldItem
     {
         public string summary { get; set; }
         public string safe_summary { get; set; }

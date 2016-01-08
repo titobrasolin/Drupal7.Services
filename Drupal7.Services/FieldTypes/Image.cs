@@ -2,9 +2,9 @@
 {
     public class ImageField
     {
-        public ImageItem[] und { get; set; }
+        public ImageFieldItem[] und { get; set; }
     }
-    public class ImageItem
+    public class ImageFieldItem
     {
         public string filename { get; set; }
         public string alt { get; set; }
