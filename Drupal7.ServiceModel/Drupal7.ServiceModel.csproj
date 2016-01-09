@@ -31,21 +31,32 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FieldTypes\Image.cs" />
-    <Compile Include="FieldTypes\TaxonomyTermReference.cs" />
-    <Compile Include="FieldTypes\Text.cs" />
-    <Compile Include="FieldTypes\Date.cs" />
     <Compile Include="BaseClasses\BaseUser.cs" />
     <Compile Include="BaseClasses\BaseNode.cs" />
     <Compile Include="BaseClasses\BaseNodeIndexItem.cs" />
     <Compile Include="BaseClasses\BaseNodeArticle.cs" />
+    <Compile Include="FieldTypes\DateFieldItem.cs" />
+    <Compile Include="FieldTypes\ImageFieldItem.cs" />
+    <Compile Include="FieldTypes\TaxonomyTermReferenceFieldItem.cs" />
+    <Compile Include="FieldTypes\TextFieldItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="FieldTypes\" />
     <Folder Include="BaseClasses\" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+          <CSharpFormattingPolicy IndentSwitchBody="True" IndentBlocksInsideExpressions="True" AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" PropertyGetBraceStyle="NextLine" PropertySetBraceStyle="NextLine" EventBraceStyle="NextLine" EventAddBraceStyle="NextLine" EventRemoveBraceStyle="NextLine" StatementBraceStyle="NextLine" ElseNewLinePlacement="NewLine" CatchNewLinePlacement="NewLine" FinallyNewLinePlacement="NewLine" WhileNewLinePlacement="DoNotCare" ArrayInitializerWrapping="DoNotChange" ArrayInitializerBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" NewLineBeforeConstructorInitializerColon="NewLine" NewLineAfterConstructorInitializerColon="SameLine" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" SpacesBeforeBrackets="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
