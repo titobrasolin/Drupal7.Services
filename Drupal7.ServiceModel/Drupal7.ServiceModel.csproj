@@ -38,16 +38,17 @@
     <Compile Include="BaseClasses\BaseUser.cs" />
     <Compile Include="BaseClasses\BaseNode.cs" />
     <Compile Include="BaseClasses\BaseNodeIndexItem.cs" />
-    <Compile Include="BaseClasses\BaseNodeArticle.cs" />
     <Compile Include="FieldTypes\DateFieldItem.cs" />
     <Compile Include="FieldTypes\ImageFieldItem.cs" />
     <Compile Include="FieldTypes\TaxonomyTermReferenceFieldItem.cs" />
     <Compile Include="FieldTypes\TextFieldItem.cs" />
+    <Compile Include="ContentTypes\DrupalArticle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="FieldTypes\" />
     <Folder Include="BaseClasses\" />
+    <Folder Include="ContentTypes\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
