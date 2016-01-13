@@ -43,6 +43,7 @@
     <Compile Include="FieldTypes\TaxonomyTermReferenceFieldItem.cs" />
     <Compile Include="FieldTypes\TextFieldItem.cs" />
     <Compile Include="ContentTypes\DrupalArticle.cs" />
+    <Compile Include="FieldTypes\PostalAddressFieldItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
