@@ -22,10 +22,10 @@ namespace Drupal7.Services
 		public event DrupalAsyncCompletedEventHandler<XmlRpcStruct[]> TaxonomyTermIndexCompleted;
 		public event DrupalAsyncCompletedEventHandler<XmlRpcStruct[]> TaxonomyTermSelectNodesCompleted;
 
-		public object TaxonomyTermRetrieve(int tid)
+		public XmlRpcStruct TaxonomyTermRetrieve(int tid)
 		{
 			this.InitRequest();
-			object res = null;
+            XmlRpcStruct res = null;
 			try {
 				res = drupalServiceSystem.TaxonomyTermRetrieve(tid);
 			} catch (Exception ex) {
