@@ -464,13 +464,13 @@ namespace Drupal7.Services
 		#region TaxonomyTerm
 
 		[XmlRpcMethod("taxonomy_term.retrieve")]
-		object TaxonomyTermRetrieve(int tid);
+        XmlRpcStruct TaxonomyTermRetrieve(int tid);
 		
 		[XmlRpcBegin("taxonomy_term.retrieve")]
 		IAsyncResult BeginTaxonomyTermRetrieve(int tid, AsyncCallback callback, object asyncState);
 		
 		[XmlRpcEnd("taxonomy_term.retrieve")]
-		object EndTaxonomyTermRetrieve(IAsyncResult asyncResult);
+        XmlRpcStruct EndTaxonomyTermRetrieve(IAsyncResult asyncResult);
 		
 		[XmlRpcMethod("taxonomy_term.create")]
 		int TaxonomyTermCreate(XmlRpcStruct term);
